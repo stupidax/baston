@@ -1,4 +1,10 @@
-[gd_scene format=3 uid="uid://by2ygdypl8nj8"]
+[gd_scene load_steps=6 format=3 uid="uid://by2ygdypl8nj8"]
+
+[ext_resource type="Script" path="res://ui.gd" id="1_1nwoe"]
+[ext_resource type="Texture2D" uid="uid://brlobi2dh4twm" path="res://assets/bar0.png" id="2_1brsy"]
+[ext_resource type="Texture2D" uid="uid://bjaqhmk73g5p4" path="res://assets/bar5.png" id="2_qfg5a"]
+[ext_resource type="Texture2D" uid="uid://bsawgc0r5xfpq" path="res://assets/bar2.png" id="3_6jhl1"]
+[ext_resource type="Texture2D" uid="uid://clmcywei1wq54" path="res://assets/bar1.png" id="3_bpq1o"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -7,11 +13,64 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_1nwoe")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Global" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Life_bar" type="HBoxContainer" parent="Global"]
+layout_mode = 2
+alignment = 1
+
+[node name="juice_life_P1" type="TextureProgressBar" parent="Global/Life_bar"]
+layout_mode = 2
+max_value = 30.0
+value = 10.0
+texture_under = ExtResource("2_qfg5a")
+texture_progress = ExtResource("3_bpq1o")
+
+[node name="Life_P1" type="TextureProgressBar" parent="Global/Life_bar/juice_life_P1"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 30.0
+grow_vertical = 2
+max_value = 30.0
+value = 22.0
+texture_under = ExtResource("2_1brsy")
+texture_progress = ExtResource("3_6jhl1")
+
+[node name="juice_life_P2" type="TextureProgressBar" parent="Global/Life_bar"]
+texture_filter = 1
+layout_mode = 2
+max_value = 30.0
+value = 28.0
+fill_mode = 1
+texture_under = ExtResource("2_qfg5a")
+texture_progress = ExtResource("3_bpq1o")
+
+[node name="Life_P2" type="TextureProgressBar" parent="Global/Life_bar/juice_life_P2"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+grow_horizontal = 0
+grow_vertical = 2
+max_value = 30.0
+value = 12.0
+fill_mode = 1
+texture_under = ExtResource("2_1brsy")
+texture_progress = ExtResource("3_6jhl1")
+
+[node name="Timer" type="Timer" parent="Global/Life_bar"]
+wait_time = 0.05
+autostart = true
+
+[connection signal="timeout" from="Global/Life_bar/Timer" to="." method="_on_timer_timeout"]
