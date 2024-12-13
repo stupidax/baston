@@ -11,8 +11,11 @@ const Animations = {
 }
 
 enum attack_type {SIMPLE, CHARGED, IMPARABLE}
+const SIMPLE_DAMAGE = 1;
 const STRONG_CHARGE_NEEDED = 14;
+const STRONG_DAMAGE = 2;
 const IMPARABLE_CHARGE_NEEDED = 28;
+const IMPARABLE_DAMAGE = 3;
 func from_frame_to_attack_type(frame_number):
 	if frame_number >= IMPARABLE_CHARGE_NEEDED:
 		return attack_type.IMPARABLE;
@@ -64,6 +67,18 @@ class Player:
 	func is_max_charge():
 		return self.charge_frames == MAX_CHARGE;
 	
+	func compute_received_attack(attack_received) -> void:
+		if attack_received == attack_type.IMPARABLE:
+			self.life -= IMPARABLE_DAMAGE;
+		elif self.current_animation != Animations.PARADE && self.sprite.frame <= 1:
+			# TODO: handle parade consequences
+			self.life;
+		elif self.current_animation != Animations.BLOCK:
+			if attack_received == attack_type.CHARGED:
+				self.life -= STRONG_DAMAGE;
+			else:
+				self.life -= SIMPLE_DAMAGE;
+				
 	func is_dead() -> bool:
 		return self.life < 1;
 
