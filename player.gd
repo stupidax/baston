@@ -1,13 +1,11 @@
-extends Node
+extends Node2D
 
+var life = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$AnimatedSprite2D.play("idle")
 
-
-func fight() -> void:
-	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

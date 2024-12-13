@@ -2,6 +2,7 @@
 
 0.0 mise en place du prototype :
 
-- creation du dossier
-- envoi sur github
-- partage
+[x] creation du dossier
+[x] envoi sur github
+[x] partage
+[ ] ...
