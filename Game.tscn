@@ -10,6 +10,14 @@ script = ExtResource("1")
 
 [node name="Player" parent="." instance=ExtResource("2")]
 position = Vector2(28, 18)
+player_attack = "p1_attack"
+player_block = "p1_block"
+
+[node name="Player2" parent="." instance=ExtResource("2")]
+position = Vector2(57, 18)
+scale = Vector2(-1, 1)
+player_attack = "p2_attack"
+player_block = "p2_block"
 
 [node name="Combat" type="Node" parent="."]
 script = ExtResource("3_c4djo")

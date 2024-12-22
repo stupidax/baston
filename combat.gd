@@ -1,10 +1,47 @@
 extends Node
 
+@onready var p1_node = get_parent().get_node("Player");
+@onready var p2_node = get_parent().get_node("Player2");
+@onready var ui_node = get_parent().get_node("Control/UI");
+
+const FULL_LIFE = 30;
+const LIFE_RATIO = FULL_LIFE / 10;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	p1_node.connect("on_attack", self.handleAttack.bind(self, p2_node));
+	p2_node.connect("on_attack", self.handleAttack.bind(self, p1_node));
+	
+	p1_node.connect("on_parade", self.handleParade.bind(self, p2_node));
+	p2_node.connect("on_parade", self.handleParade.bind(self, p1_node));
+	
+	p1_node.connect("on_block", self.handleBlock.bind(self, p2_node));
+	p2_node.connect("on_block", self.handleBlock.bind(self, p1_node));
+	
+	p1_node.connect("on_damage_taken", self.handleDamageTaken.bind(self, 1));
+	p2_node.connect("on_damage_taken", self.handleDamageTaken.bind(self, 2));
+	
+	ui_node.player_change_life("gain", FULL_LIFE, 1);
+	ui_node.player_change_life("gain", FULL_LIFE, 2);
+	
+	p1_node.connect("on_dead", self.endCombat.bind(self, p2_node));
+	p2_node.connect("on_dead", self.endCombat.bind(self, p1_node));
 
+func handleAttack(attack_type, _param, player_node) -> void:
+	player_node.attack_received(attack_type);
+
+func handleParade(_param, player_node) -> void:
+	player_node.parade_received();
+	
+func handleBlock() -> void:
+	ui_node
+
+func handleDamageTaken(damage, _param, player_number) -> void:
+	ui_node.player_change_life("lose", damage * LIFE_RATIO, player_number);
+	
+func endCombat(_param, winner_player):
+	winner_player.win_combat();
+	
 
 func fight() -> void:
 	pass
