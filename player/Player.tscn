@@ -251,7 +251,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("31")
 }],
-"loop": true,
+"loop": false,
 "name": &"victory",
 "speed": 5.0
 }]
@@ -261,4 +261,4 @@ script = ExtResource("1_di8lt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
-animation = &"hit"
+animation = &"victory"
