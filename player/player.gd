@@ -1,7 +1,7 @@
 extends Node2D
 
 const Animations = {
-	"ATTACK": "attack", 
+	"ATTACK": "charge", 
 	"BLOCK": "block", 
 	"COUNTER": "counter", 
 	"DEAD": "dead", 

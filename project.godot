@@ -34,6 +34,9 @@ common/drop_mouse_on_gui_input_disabled=true
 texture={
 "process/fix_alpha_border": false
 }
+animation_library={
+"animation/fps": 60.0
+}
 
 [input]
 

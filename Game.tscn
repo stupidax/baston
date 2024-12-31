@@ -1,21 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://ciqbftem0fy0r"]
+[gd_scene load_steps=6 format=3 uid="uid://ciqbftem0fy0r"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bmltmlx3vbbjn" path="res://player/Player.tscn" id="2"]
 [ext_resource type="Script" path="res://combat.gd" id="3_c4djo"]
-[ext_resource type="PackedScene" uid="uid://by2ygdypl8nj8" path="res://UI.tscn" id="4_qtu3f"]
+[ext_resource type="PackedScene" uid="uid://bwku31omujaqk" path="res://player/Player2.tscn" id="3_vbsnq"]
+[ext_resource type="PackedScene" uid="uid://by2ygdypl8nj8" path="res://ui.tscn" id="4_qtu3f"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1")
 
 [node name="Player" parent="." instance=ExtResource("2")]
-position = Vector2(28, 18)
+position = Vector2(32, 18)
 player_attack = "p1_attack"
 player_block = "p1_block"
 
-[node name="Player2" parent="." instance=ExtResource("2")]
-position = Vector2(57, 18)
-scale = Vector2(-1, 1)
+[node name="Player2" parent="." instance=ExtResource("3_vbsnq")]
 player_attack = "p2_attack"
 player_block = "p2_block"
 
@@ -34,6 +33,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+metadata/_edit_lock_ = true
 
 [node name="UI" parent="Control" instance=ExtResource("4_qtu3f")]
 layout_mode = 1
+metadata/_edit_lock_ = true
