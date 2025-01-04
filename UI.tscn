@@ -35,6 +35,7 @@ layout_mode = 2
 max_value = 30.0
 step = 0.1
 value = 10.0
+fill_mode = 1
 texture_under = ExtResource("2_qfg5a")
 texture_progress = ExtResource("3_bpq1o")
 
@@ -46,7 +47,8 @@ offset_right = 30.0
 grow_vertical = 2
 max_value = 30.0
 step = 0.1
-value = 22.0
+value = 26.0
+fill_mode = 1
 texture_under = ExtResource("2_1brsy")
 texture_progress = ExtResource("3_6jhl1")
 
@@ -56,7 +58,6 @@ layout_mode = 2
 max_value = 30.0
 step = 0.1
 value = 28.0
-fill_mode = 1
 texture_under = ExtResource("2_qfg5a")
 texture_progress = ExtResource("3_bpq1o")
 
@@ -72,11 +73,13 @@ grow_vertical = 2
 max_value = 30.0
 step = 0.1
 value = 12.0
-fill_mode = 1
 texture_under = ExtResource("2_1brsy")
 texture_progress = ExtResource("3_6jhl1")
 
-[node name="Timer" type="Timer" parent="Global/Life_bar"]
+[node name="Timer_P1" type="Timer" parent="Global/Life_bar"]
+one_shot = true
+
+[node name="Timer_P2" type="Timer" parent="Global/Life_bar"]
 one_shot = true
 
 [node name="Shield_bar" type="HBoxContainer" parent="Global"]
@@ -86,7 +89,7 @@ alignment = 1
 [node name="shield_P1" type="TextureProgressBar" parent="Global/Shield_bar"]
 layout_mode = 2
 max_value = 15.0
-step = 0.1
+step = 0.01
 value = 15.0
 fill_mode = 1
 texture_under = ExtResource("6_fj3cq")
@@ -95,10 +98,17 @@ texture_progress = ExtResource("7_pfcke")
 [node name="shield_P2" type="TextureProgressBar" parent="Global/Shield_bar"]
 layout_mode = 2
 max_value = 15.0
-step = 0.1
+step = 0.01
 value = 15.0
 fill_mode = 1
 texture_under = ExtResource("6_fj3cq")
 texture_progress = ExtResource("7_pfcke")
 
-[connection signal="timeout" from="Global/Life_bar/Timer" to="." method="_on_timer_timeout"]
+[node name="Timer_shield_P1" type="Timer" parent="Global/Shield_bar"]
+one_shot = true
+
+[node name="Timer_shield_P2" type="Timer" parent="Global/Shield_bar"]
+
+[connection signal="timeout" from="Global/Life_bar/Timer_P1" to="." method="_on_timer_p_1_timeout"]
+[connection signal="timeout" from="Global/Life_bar/Timer_P2" to="." method="_on_timer_p_2_timeout"]
+[connection signal="timeout" from="Global/Shield_bar/Timer_shield_P1" to="." method="_on_timer_shield_p_1_timeout"]

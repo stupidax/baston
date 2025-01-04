@@ -187,5 +187,18 @@ func _input(event) -> void:
 		player.set_current_animation(Animations.PARADE);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	player.compute_charge();
+	if player.is_dead():
+		player.set_current_animation(Animations.DEAD);
+		
+	if player.is_charging:
+		player.increment_charge_frames();
+	else:
+		player.reset_charge_frames();
+		
+	if player.is_max_charge():
+		$AnimatedSprite2D.play();
+		player.is_charging = false;
+		player.reset_charge_frames();
