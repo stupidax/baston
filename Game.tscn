@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bwku31omujaqk" path="res://player/Player2.tscn" id="3_vbsnq"]
 [ext_resource type="PackedScene" uid="uid://by2ygdypl8nj8" path="res://ui.tscn" id="4_qtu3f"]
 
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1")
 

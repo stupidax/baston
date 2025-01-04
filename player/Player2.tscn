@@ -558,7 +558,7 @@ animations = [{
 script = ExtResource("1_fbojq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(46, 18)
+position = Vector2(46, 20)
 sprite_frames = SubResource("1")
 animation = &"attack_strong"
 flip_h = true
