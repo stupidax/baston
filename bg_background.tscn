@@ -1,0 +1,149 @@
+[gd_scene load_steps=22 format=3 uid="uid://d3rkiow4mjix1"]
+
+[ext_resource type="Script" path="res://bg_background.gd" id="1_8sx5x"]
+[ext_resource type="Texture2D" uid="uid://dh18wy8dv4ayl" path="res://assets/bg_0/bg_0_Layer 6.png" id="1_dqtvq"]
+[ext_resource type="Texture2D" uid="uid://cu4ec636vdpny" path="res://assets/bg_0/bg_0_Layer 5.png" id="2_impgn"]
+[ext_resource type="Texture2D" uid="uid://bxd6ohmdxq1sn" path="res://assets/bg_0/bg_0_Layer 4.png" id="3_f836y"]
+[ext_resource type="Texture2D" uid="uid://ckx7hg63lnwis" path="res://assets/bg_0/bg_0_Layer 3.png" id="4_4gu0i"]
+[ext_resource type="Texture2D" uid="uid://ifx703omnddw" path="res://assets/bg_0/bg_0_Layer 0.png" id="4_5lyj0"]
+[ext_resource type="Texture2D" uid="uid://h0v8jea4xw7w" path="res://assets/bg_0/bg_0_Layer 1.png" id="6_k85vm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4mk1"]
+atlas = ExtResource("1_dqtvq")
+region = Rect2(0, 0, 80, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yicv8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4mk1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57t8b"]
+atlas = ExtResource("2_impgn")
+region = Rect2(0, 0, 80, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tsj0v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57t8b")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h40eo"]
+atlas = ExtResource("3_f836y")
+region = Rect2(0, 0, 80, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bduq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h40eo")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tljui"]
+atlas = ExtResource("4_5lyj0")
+region = Rect2(0, 0, 80, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qwxvl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tljui")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqjqv"]
+atlas = ExtResource("6_k85vm")
+region = Rect2(0, 0, 80, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fur8p"]
+atlas = ExtResource("6_k85vm")
+region = Rect2(0, 45, 80, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m782x"]
+atlas = ExtResource("6_k85vm")
+region = Rect2(0, 90, 80, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bfvcy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqjqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fur8p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m782x")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eewa"]
+atlas = ExtResource("4_4gu0i")
+region = Rect2(0, 0, 80, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0ojoy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eewa")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="bg_background" type="Node2D"]
+position = Vector2(40, 22.5)
+script = ExtResource("1_8sx5x")
+
+[node name="bg_l6" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yicv8")
+animation = &"idle"
+
+[node name="bg_l5" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 6)
+sprite_frames = SubResource("SpriteFrames_tsj0v")
+animation = &"idle"
+
+[node name="bg_l4" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_4bduq")
+animation = &"idle"
+
+[node name="bg_l1" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 10)
+sprite_frames = SubResource("SpriteFrames_qwxvl")
+animation = &"idle"
+
+[node name="bg_l2" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 12)
+sprite_frames = SubResource("SpriteFrames_bfvcy")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.725102
+
+[node name="bg_l3" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 12)
+sprite_frames = SubResource("SpriteFrames_0ojoy")
+animation = &"idle"
+autoplay = "idle"

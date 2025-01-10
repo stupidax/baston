@@ -9,5 +9,12 @@ func _input(event: InputEvent) -> void:
 		get_tree().quit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass;
+func _process(delta):
+	if $Player.position.y > 18:
+		$Player.position.y -= delta * 25
+		if $Player.position.y < 18:
+			$Player.position.y = 18
+	if $Player2.position.y > 1:
+		$Player2.position.y -= delta * 25
+		if $Player2.position.y < 1:
+			$Player2.position.y = 1

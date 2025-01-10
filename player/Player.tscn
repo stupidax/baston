@@ -627,6 +627,4 @@ script = ExtResource("1_di8lt")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 3)
 sprite_frames = SubResource("1")
-animation = &"attack_light"
-frame = 12
-frame_progress = 1.0
+animation = &"dead"

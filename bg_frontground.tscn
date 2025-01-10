@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3ynwms3bgmm8"]
+
+[ext_resource type="Script" path="res://bg_frontground.gd" id="1_025s7"]
+[ext_resource type="Texture2D" uid="uid://358hhf4ypnxc" path="res://assets/bg_0/bg_0_Layer 2.png" id="1_m0gk2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2if6r"]
+atlas = ExtResource("1_m0gk2")
+region = Rect2(0, 0, 80, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjkc2"]
+atlas = ExtResource("1_m0gk2")
+region = Rect2(0, 45, 80, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k8qm"]
+atlas = ExtResource("1_m0gk2")
+region = Rect2(0, 90, 80, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ndp7a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2if6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjkc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k8qm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="bg_frontground" type="Node2D"]
+position = Vector2(0, -0.5)
+script = ExtResource("1_025s7")
+
+[node name="bg_l1" type="AnimatedSprite2D" parent="."]
+position = Vector2(40, 39)
+sprite_frames = SubResource("SpriteFrames_ndp7a")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.261898

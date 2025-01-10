@@ -475,7 +475,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"counter",
-"speed": 5.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -560,5 +560,5 @@ script = ExtResource("1_fbojq")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(46, 20)
 sprite_frames = SubResource("1")
-animation = &"attack_strong"
+animation = &"dead"
 flip_h = true

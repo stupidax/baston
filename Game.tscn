@@ -1,27 +1,68 @@
-[gd_scene load_steps=6 format=3 uid="uid://ciqbftem0fy0r"]
+[gd_scene load_steps=11 format=3 uid="uid://ciqbftem0fy0r"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://gmmnh2kl0cl0" path="res://player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://d3rkiow4mjix1" path="res://bg_background.tscn" id="2_k6oj8"]
+[ext_resource type="PackedScene" uid="uid://bq8hhxkg4vmxq" path="res://back_effect_sprite.tscn" id="2_qwsjq"]
 [ext_resource type="Script" path="res://combat.gd" id="3_c4djo"]
 [ext_resource type="PackedScene" uid="uid://bwku31omujaqk" path="res://player/Player2.tscn" id="3_vbsnq"]
 [ext_resource type="PackedScene" uid="uid://by2ygdypl8nj8" path="res://ui.tscn" id="4_qtu3f"]
+[ext_resource type="PackedScene" uid="uid://c4gjtge7qh2jq" path="res://front_effect_sprite.tscn" id="5_ferps"]
+[ext_resource type="PackedScene" uid="uid://d3ynwms3bgmm8" path="res://bg_frontground.tscn" id="9_6asdv"]
+[ext_resource type="PackedScene" uid="uid://bdwq16oi4pxf1" path="res://begin_fight.tscn" id="10_1i13m"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1")
 
+[node name="bg_back" type="Node2D" parent="."]
+
+[node name="bg_background" parent="bg_back" instance=ExtResource("2_k6oj8")]
+
 [node name="back_effect" type="Node2D" parent="."]
 
+[node name="back_effect_sprite_P2" parent="back_effect" instance=ExtResource("2_qwsjq")]
+visible = false
+position = Vector2(52, 26)
+frame = 1
+frame_progress = 0.0
+metadata/_edit_lock_ = true
+
+[node name="back_effect_sprite_P1" parent="back_effect" instance=ExtResource("2_qwsjq")]
+visible = false
+position = Vector2(28, 26)
+frame = 1
+frame_progress = 0.0
+metadata/_edit_lock_ = true
+
 [node name="Player" parent="." instance=ExtResource("2")]
-position = Vector2(32, 18)
+position = Vector2(32, 30)
 player_attack = "p1_attack"
 player_block = "p1_block"
+metadata/_edit_lock_ = true
 
 [node name="Player2" parent="." instance=ExtResource("3_vbsnq")]
-position = Vector2(0, 1)
+position = Vector2(0, 13)
 player_attack = "p2_attack"
 player_block = "p2_block"
+metadata/_edit_lock_ = true
 
 [node name="front_effect" type="Node2D" parent="."]
+
+[node name="front_effect_sprite_P2" parent="front_effect" instance=ExtResource("5_ferps")]
+visible = false
+position = Vector2(52, 26)
+frame = 1
+frame_progress = 0.0
+metadata/_edit_lock_ = true
+
+[node name="front_effect_sprite_P1" parent="front_effect" instance=ExtResource("5_ferps")]
+visible = false
+position = Vector2(28, 26)
+frame = 1
+frame_progress = 0.0
+metadata/_edit_lock_ = true
+
+[node name="hit_display" type="Node2D" parent="front_effect"]
 
 [node name="Combat" type="Node" parent="."]
 script = ExtResource("3_c4djo")
@@ -43,3 +84,11 @@ metadata/_edit_lock_ = true
 [node name="UI" parent="Control" instance=ExtResource("4_qtu3f")]
 layout_mode = 1
 metadata/_edit_lock_ = true
+
+[node name="bg_front" type="Node2D" parent="."]
+
+[node name="bg_frontground" parent="bg_front" instance=ExtResource("9_6asdv")]
+
+[node name="front_screen" type="Node2D" parent="."]
+
+[node name="begin_fight" parent="front_screen" instance=ExtResource("10_1i13m")]

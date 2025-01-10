@@ -36,7 +36,7 @@ class Player:
 	var current_animation;
 	var charge_frames;
 	var is_charging;
-	var current_attack_type;
+	var current_attack_type = attack_type.SIMPLE;
 	
 	var on_attack;
 	var on_parade;
@@ -188,7 +188,7 @@ func _input(event) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	player.compute_charge();
 	if player.is_dead():
 		player.set_current_animation(Animations.DEAD);
