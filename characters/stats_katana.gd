@@ -32,6 +32,11 @@ extends Node
 	Constants.attack_type.MEDIUM: 8,
 	Constants.attack_type.STRONG: null
 };
+@export var attack_damage = {
+	Constants.attack_type.LIGHT: 1,
+	Constants.attack_type.MEDIUM: 2,
+	Constants.attack_type.STRONG: 3	
+};
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

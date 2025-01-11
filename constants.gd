@@ -1,9 +1,9 @@
 extends Node
 
 const attack_type = {
-	"LIGHT": "light", 
-	"MEDIUM": "medium", 
-	"STRONG": "strong"
+	"LIGHT": "LIGHT", 
+	"MEDIUM": "MEDIUM", 
+	"STRONG": "STRONG"
 };
 
 # Called when the node enters the scene tree for the first time.
