@@ -231,3 +231,10 @@ func _process(delta: float) -> void:
 	player.compute_stun();
 	player.compute_stun_block();
 	player.compute_charge();
+	intro_position(delta);
+
+func intro_position(p_delta):
+	if self.position.y > 21:
+		self.position.y -= p_delta * 25
+		if self.position.y < 21:
+			self.position.y = 21

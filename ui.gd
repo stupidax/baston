@@ -1,5 +1,7 @@
 extends Control
 
+var hit_effect = preload("res://hit_effect.tscn")
+
 #Life variable
 var juicy_update = false
 var life_speed = 10
@@ -19,6 +21,12 @@ var shield_reset_P2 = 3
 var can_block_P1 = true
 var can_block_P2 = true
 
+#charge_node
+@onready var charge_front_1 = get_node("/root/Game/front_effect/front_effect_sprite_P1") 
+@onready var charge_front_2 = get_node("/root/Game/front_effect/front_effect_sprite_P2") 
+@onready var charge_back_1 = get_node("/root/Game/back_effect/back_effect_sprite_P2") 
+@onready var charge_back_2 = get_node("/root/Game/back_effect/back_effect_sprite_P2") 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Global/Life_bar/Timer_P1.wait_time = life_timer
@@ -28,7 +36,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test_1"):
-		player_change_life("gain",30,1)
+		var random_player = randi()%2+1
+		var random_attack = randi()%3+1
+		player_get_hit(random_player, random_attack)
 	if Input.is_action_just_pressed("test_2"):
 		player_change_life("lose",randi()%5+1,1)
 	#if juicy_update:
@@ -193,3 +203,87 @@ func _on_timer_shield_p_1_timeout() -> void:
 	can_block_P1 = true
 	$Global/Shield_bar/shield_P1.value = $Global/Shield_bar/shield_P1.max_value
 	$Global/Shield_bar/shield_P1.set_modulate(Color(1,1,1,1))
+
+func start_charge(p_player):
+	match p_player:
+		1:
+			charge_front_1.visible = true
+			charge_back_1.visible = true
+		2: 
+			charge_front_2.visible = true
+			charge_back_2.visible = true
+
+func upgrade_charge(p_player):
+	match p_player:
+		1: 
+			if charge_front_1.animation == "level_0":
+				charge_front_1.play("level_1")
+				charge_back_1.play("level_1")
+			elif charge_front_1.animation == "level_1":
+				charge_front_1.play("level_2")
+				charge_back_1.play("level_2")
+		2:
+			if charge_front_2.animation == "level_0":
+				charge_front_2.play("level_1")
+				charge_back_2.play("level_1")
+			elif charge_front_2.animation == "level_1":
+				charge_front_2.play("level_2")
+				charge_back_2.play("level_2")
+
+func stop_charge(p_player):
+	match p_player:
+		1: 
+			charge_front_1.visible = false
+			charge_back_1.visible = false
+			charge_front_1.play("level_0")
+			charge_back_1.play("level_0")
+		2: 
+			charge_front_2.visible = false
+			charge_back_2.visible = false
+			charge_front_2.play("level_0")
+			charge_back_2.play("level_0")
+
+func player_get_hit(p_player,p_attack):
+	var new_hit = hit_effect.instantiate()
+	# x : 25 to 30
+	# y : 20 to 30
+	var random_pos_x = 25 + randi()%5+1
+	if p_player == 2:
+		random_pos_x += 20
+	var random_pos_y = 20 + randi()%10+1
+	new_hit.position.x = random_pos_x
+	new_hit.position.y = random_pos_y
+	match p_attack:
+		1:
+			new_hit.init("hit_light")
+		2:
+			new_hit.init("hit_medium")
+		3:
+			new_hit.init("hit_strong")
+	get_node("/root/Game/front_effect/hit_display").add_child(new_hit)
+
+func player_parade_successfull(p_player):
+	var new_hit = hit_effect.instantiate()
+	# x : 25 to 30
+	# y : 20 to 30
+	var random_pos_x = 25 + randi()%5+1
+	if p_player == 2:
+		random_pos_x += 20
+	var random_pos_y = 20 + randi()%10+1
+	new_hit.position.x = random_pos_x
+	new_hit.position.y = random_pos_y
+	new_hit.init("hit_parade")
+	get_node("/root/Game/front_effect/hit_display").add_child(new_hit)
+
+func player_block_successfull(p_player):
+	var new_hit = hit_effect.instantiate()
+	# x : 25 to 30
+	# y : 20 to 30
+	var random_pos_x = 25 + randi()%5+1
+	if p_player == 2:
+		random_pos_x += 20
+	var random_pos_y = 20 + randi()%10+1
+	new_hit.position.x = random_pos_x
+	new_hit.position.y = random_pos_y
+	new_hit.init("hit_block")
+	get_node("/root/Game/front_effect/hit_display").add_child(new_hit)
