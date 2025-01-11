@@ -1,15 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://ciqbftem0fy0r"]
+[gd_scene load_steps=15 format=3 uid="uid://ciqbftem0fy0r"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://gmmnh2kl0cl0" path="res://player/Player.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://d3rkiow4mjix1" path="res://bg_background.tscn" id="2_k6oj8"]
-[ext_resource type="PackedScene" uid="uid://bq8hhxkg4vmxq" path="res://back_effect_sprite.tscn" id="2_qwsjq"]
+[ext_resource type="PackedScene" uid="uid://bmltmlx3vbbjn" path="res://player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://bg_background.tscn" id="2_k6oj8"]
+[ext_resource type="PackedScene" path="res://back_effect_sprite.tscn" id="2_qwsjq"]
 [ext_resource type="Script" path="res://combat.gd" id="3_c4djo"]
 [ext_resource type="PackedScene" uid="uid://bwku31omujaqk" path="res://player/Player2.tscn" id="3_vbsnq"]
-[ext_resource type="PackedScene" uid="uid://by2ygdypl8nj8" path="res://ui.tscn" id="4_qtu3f"]
-[ext_resource type="PackedScene" uid="uid://c4gjtge7qh2jq" path="res://front_effect_sprite.tscn" id="5_ferps"]
-[ext_resource type="PackedScene" uid="uid://d3ynwms3bgmm8" path="res://bg_frontground.tscn" id="9_6asdv"]
-[ext_resource type="PackedScene" uid="uid://bdwq16oi4pxf1" path="res://begin_fight.tscn" id="10_1i13m"]
+[ext_resource type="PackedScene" uid="uid://by2ygdypl8nj8" path="res://UI.tscn" id="4_qtu3f"]
+[ext_resource type="PackedScene" path="res://front_effect_sprite.tscn" id="5_ferps"]
+[ext_resource type="Script" path="res://player/player.gd" id="6_ie2qv"]
+[ext_resource type="Script" path="res://characters/stats_katana.gd" id="6_mk7t5"]
+[ext_resource type="Script" path="res://constants.gd" id="7_yu4sk"]
+[ext_resource type="Script" path="res://characters/stats_dagger.gd" id="8_f0y27"]
+[ext_resource type="PackedScene" path="res://bg_frontground.tscn" id="9_6asdv"]
+[ext_resource type="PackedScene" path="res://begin_fight.tscn" id="10_1i13m"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1")
@@ -36,14 +40,11 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("2")]
 position = Vector2(32, 30)
-player_attack = "p1_attack"
-player_block = "p1_block"
 metadata/_edit_lock_ = true
 
 [node name="Player2" parent="." instance=ExtResource("3_vbsnq")]
 position = Vector2(0, 13)
-player_attack = "p2_attack"
-player_block = "p2_block"
+script = ExtResource("6_ie2qv")
 metadata/_edit_lock_ = true
 
 [node name="front_effect" type="Node2D" parent="."]
@@ -92,3 +93,12 @@ metadata/_edit_lock_ = true
 [node name="front_screen" type="Node2D" parent="."]
 
 [node name="begin_fight" parent="front_screen" instance=ExtResource("10_1i13m")]
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("7_yu4sk")
+
+[node name="Katana" type="Node" parent="Stats"]
+script = ExtResource("6_mk7t5")
+
+[node name="Dagger" type="Node" parent="Stats"]
+script = ExtResource("8_f0y27")

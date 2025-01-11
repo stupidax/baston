@@ -15,6 +15,10 @@ run/main_scene="res://Game.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
+[autoload]
+
+Constants="*res://constants.gd"
+
 [display]
 
 window/size/viewport_width=80

@@ -1,7 +1,7 @@
 extends Node2D
 
 const Animations = {
-	"ATTACK_LIGHT": "attack_light",
+	"ATTACK_LIGHT": "attack_light", 
 	"ATTACK_MEDIUM": "attack_medium", 
 	"ATTACK_STRONG": "attack_strong", 
 	"BLOCK": "block", 
@@ -14,14 +14,20 @@ const Animations = {
 	"VICTORY": "victory"
 }
 
+const STRONG_CHARGE_NEEDED = 14;
+const IMPARABLE_CHARGE_NEEDED = 28;
+
 func from_frame_to_attack_type(frame_number):
-	if frame_number >= player_stats.charge_frames[Constants.attack_type.STRONG]:
-		return Constants.attack_type.STRONG;
-	elif frame_number >= player_stats.charge_frames[Constants.attack_type.MEDIUM]:
-		return Constants.attack_type.MEDIUM;
-	return Constants.attack_type.SIMPLE;
+	if frame_number >= IMPARABLE_CHARGE_NEEDED:
+		return attack_type.STRONG;
+	elif frame_number >= STRONG_CHARGE_NEEDED:
+		return attack_type.MEDIUM;
+	return attack_type.LIGHT;
 	
 class Player:
+	const DEFAULT_LIFE = 10;
+	const MAX_CHARGE = 30;
+	
 	var is_combat_ongoing;
 	var life;
 	var sprite;
@@ -36,12 +42,11 @@ class Player:
 	var on_parade;
 	var on_block;
 	
-	func _init(life_param, max_charge_param, sprite_param, attack_action_param, \
+	func _init(life_param, sprite_param, attack_action_param, \
 		block_action_param, attack_signal, parade_signal, block_signal):
 		
 		self.life = life_param;
 		self.sprite = sprite_param;
-		self.max_charge = max_charge_param;
 		self.attack_action = attack_action_param;
 		self.block_action = block_action_param;
 		self.set_current_animation(Animations.IDLE);
@@ -71,7 +76,7 @@ class Player:
 			self.reset_charge_frames();
 			
 		if self.is_max_charge():
-			self.current_attack_type = Constants.attack_type.STRONG;
+			self.current_attack_type = attack_type.STRONG;
 			self.sprite.play();
 			self.is_charging = false;
 			self.reset_charge_frames();
@@ -80,17 +85,17 @@ class Player:
 	func reset_charge_frames():
 		self.charge_frames = 0;
 	func is_max_charge():
-		return self.charge_frames == self.max_charge;
+		return self.charge_frames == MAX_CHARGE;
 	
 	func compute_received_attack(attack_received) -> int:
 		var is_hit = false;
 		var damage = 0;
-		if attack_received != Constants.attack_type.STRONG && self.current_animation == Animations.PARADE:
+		if attack_received != attack_type.STRONG && self.current_animation == Animations.PARADE:
 			self.on_parade.emit();
-		elif attack_received != Constants.attack_type.STRONG && self.current_animation == Animations.BLOCK:
+		elif attack_received != attack_type.STRONG && self.current_animation == Animations.BLOCK:
 			self.on_block.emit();
 		else:
-			damage = attack_received;
+			damage = attack_damage[attack_received];
 			is_hit = true;
 		
 		self.life -= damage;
@@ -105,9 +110,10 @@ class Player:
 	func is_dead() -> bool:
 		return self.life < 1;
 
+@export var player_life = Player.DEFAULT_LIFE;
 @export var player_attack: String;
 @export var player_block: String;
-@export var player_stats: Script;
+@export var player_stats: Node;
 
 func attack_received(attack_type) -> void:
 	var damage = player.compute_received_attack(attack_type);
@@ -126,16 +132,14 @@ func win_combat() -> void:
 
 signal on_attack();
 signal on_parade();
-signal on_block_start();
-signal on_block_end();
-signal on_attack_blocked();
+signal on_block();
 signal on_damage_taken();
 signal on_dead();
 
 var player;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = Player.new(player_stats.life, player_stats.charge_frames_cap, $AnimatedSprite2D, player_attack, player_block, on_attack, on_parade, on_attack_blocked);
+	player = Player.new(player_life, $AnimatedSprite2D, player_attack, player_block, on_attack, on_parade, on_block);
 	$AnimatedSprite2D.frame_changed.connect(_animation_progress.bind($AnimatedSprite2D));
 	$AnimatedSprite2D.animation_finished.connect(_animation_end.bind($AnimatedSprite2D));
 	player.is_combat_ongoing = true;
@@ -153,7 +157,6 @@ func _animation_end(sprite) -> void:
 		sprite.play();
 	elif sprite.animation == Animations.PARADE:
 		player.set_current_animation(Animations.BLOCK);	
-		on_block_start.emit();
 	elif sprite.animation != Animations.DEAD && sprite.animation != Animations.IDLE:
 		player.set_current_animation(Animations.IDLE);
 
@@ -169,7 +172,6 @@ func _input(event) -> void:
 		
 	if event.is_action_released(player.block_action):
 		player.set_current_animation(Animations.IDLE);
-		on_block_end.emit();
 	
 	if !player.is_action_allowed():
 		return;

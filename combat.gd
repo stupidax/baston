@@ -12,11 +12,17 @@ func _ready() -> void:
 	p1_node.connect("on_attack", self.handleAttack.bind(self, p2_node));
 	p2_node.connect("on_attack", self.handleAttack.bind(self, p1_node));
 	
-	p1_node.connect("on_parade", self.handleParade.bind(self, p2_node));
-	p2_node.connect("on_parade", self.handleParade.bind(self, p1_node));
+	p1_node.connect("on_parade", self.handleParade.bind(self, p1_node, p2_node));
+	p2_node.connect("on_parade", self.handleParade.bind(self, p2_node, p1_node));
 	
-	p1_node.connect("on_block", self.handleBlock.bind(self, p2_node));
-	p2_node.connect("on_block", self.handleBlock.bind(self, p1_node));
+	p1_node.connect("on_block_start", self.handleBlockStart.bind(self, p1_node));
+	p2_node.connect("on_block_start", self.handleBlockStart.bind(self, p2_node));
+	
+	p1_node.connect("on_block_end", self.handleBlockEnd.bind(self, p1_node));
+	p2_node.connect("on_block_end", self.handleBlockEnd.bind(self, p2_node));
+	
+	p1_node.connect("on_attack_blocked", self.handleAttackBlocked.bind(self, p2_node));
+	p2_node.connect("on_attack_blocked", self.handleAttackBlocked.bind(self, p1_node));
 	
 	p1_node.connect("on_damage_taken", self.handleDamageTaken.bind(self, 1));
 	p2_node.connect("on_damage_taken", self.handleDamageTaken.bind(self, 2));
@@ -33,8 +39,17 @@ func handleAttack(attack_type, _param, player_node) -> void:
 func handleParade(_param, player_node) -> void:
 	player_node.parade_received();
 	
-func handleBlock() -> void:
-	ui_node
+func handleBlockStart(player_node) -> void:
+	# TODO: update UI
+	pass
+	
+func handleBlockEnd(player_node) -> void:
+	# TODO: update UI
+	pass
+	
+func handleAttackBlocked(player_node) -> void:
+	# TODO: update UI
+	pass
 
 func handleDamageTaken(damage, _param, player_number) -> void:
 	ui_node.player_change_life("lose", damage * LIFE_RATIO, player_number);

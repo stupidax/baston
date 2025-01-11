@@ -1,10 +1,5 @@
 extends Control
 
-#enum attack_type {SIMPLE, CHARGED, IMPARABLE}
-
-@onready var p1_node = get_node("/root/Game/Player");
-@onready var p2_node = get_node("/root/Game/Player2");
-
 #Life variable
 var juicy_update = false
 var life_speed = 10
@@ -28,18 +23,8 @@ var can_block_P2 = true
 func _ready() -> void:
 	$Global/Life_bar/Timer_P1.wait_time = life_timer
 	$Global/Life_bar/Timer_P2.wait_time = life_timer
-	p1_node.connect("on_attack", self.handleAttack.bind(self, p2_node));
-	p2_node.connect("on_attack", self.handleAttack.bind(self, p1_node));
-	
-	p1_node.connect("on_parade", self.handleParade.bind(self, p2_node));
-	p2_node.connect("on_parade", self.handleParade.bind(self, p1_node));
-	
-	p1_node.connect("on_block", self.handleBlock.bind(self, p2_node));
-	p2_node.connect("on_block", self.handleBlock.bind(self, p1_node));
-	
-	p1_node.connect("on_damage_taken", self.handleDamageTaken.bind(self, 1));
-	p2_node.connect("on_damage_taken", self.handleDamageTaken.bind(self, 2));
-	
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test_1"):
@@ -208,60 +193,3 @@ func _on_timer_shield_p_1_timeout() -> void:
 	can_block_P1 = true
 	$Global/Shield_bar/shield_P1.value = $Global/Shield_bar/shield_P1.max_value
 	$Global/Shield_bar/shield_P1.set_modulate(Color(1,1,1,1))
-
-func handleAttack(attack_type, _param, player_node) -> void:
-	var attack_animation = ["level_0","level_1","level_2"]
-	match player_node.name:
-		"Player2":
-			if !get_node("/root/Game/back_effect/back_effect_sprite_P1").visible :
-				get_node("/root/Game/back_effect/back_effect_sprite_P1").play(attack_animation[attack_type])
-				get_node("/root/Game/back_effect/back_effect_sprite_P1").visible = true
-				get_node("/root/Game/front_effect/front_effect_sprite_P1").play(attack_animation[attack_type])
-				get_node("/root/Game/front_effect/front_effect_sprite_P1").visible = true
-		"Player":
-			if !get_node("/root/Game/back_effect/back_effect_sprite_P2").visible:
-				get_node("/root/Game/back_effect/back_effect_sprite_P2").visible = true
-				get_node("/root/Game/back_effect/back_effect_sprite_P2").play(attack_animation[attack_type])
-				get_node("/root/Game/front_effect/front_effect_sprite_P2").visible = true
-				get_node("/root/Game/front_effect/front_effect_sprite_P2").play(attack_animation[attack_type])
-
-func handleParade(_param, player_node) -> void:
-	match player_node.name:
-		"Player2":
-			get_node("/root/Game/back_effect/back_effect_sprite_P1").stop()
-			get_node("/root/Game/back_effect/back_effect_sprite_P1").visible = false
-			get_node("/root/Game/front_effect/front_effect_sprite_P1").stop()
-			get_node("/root/Game/front_effect/front_effect_sprite_P1").visible = false
-		"Player":
-			get_node("/root/Game/back_effect/back_effect_sprite_P2").visible = false
-			get_node("/root/Game/back_effect/back_effect_sprite_P2").stop()
-			get_node("/root/Game/front_effect/front_effect_sprite_P2").visible = false
-			get_node("/root/Game/front_effect/front_effect_sprite_P2").stop()
-	
-func handleBlock(player_node) -> void:
-	match player_node.name:
-		"Player2":
-			get_node("/root/Game/back_effect/back_effect_sprite_P1").stop()
-			get_node("/root/Game/back_effect/back_effect_sprite_P1").visible = false
-			get_node("/root/Game/front_effect/front_effect_sprite_P1").stop()
-			get_node("/root/Game/front_effect/front_effect_sprite_P1").visible = false
-		"Player":
-			get_node("/root/Game/back_effect/back_effect_sprite_P2").visible = false
-			get_node("/root/Game/back_effect/back_effect_sprite_P2").stop()
-			get_node("/root/Game/front_effect/front_effect_sprite_P2").visible = false
-			get_node("/root/Game/front_effect/front_effect_sprite_P2").stop()
-
-func handleDamageTaken(damage, _param, player_number) -> void:
-	match player_number:
-		1:
-			if get_node("/root/Game/back_effect/back_effect_sprite_P1").visible:
-				get_node("/root/Game/back_effect/back_effect_sprite_P1").stop()
-				get_node("/root/Game/back_effect/back_effect_sprite_P1").visible = false
-				get_node("/root/Game/front_effect/front_effect_sprite_P1").stop()
-				get_node("/root/Game/front_effect/front_effect_sprite_P1").visible = false
-		2:
-			if get_node("/root/Game/back_effect/back_effect_sprite_P2").visible:
-				get_node("/root/Game/back_effect/back_effect_sprite_P2").visible = false
-				get_node("/root/Game/back_effect/back_effect_sprite_P2").stop()
-				get_node("/root/Game/front_effect/front_effect_sprite_P2").visible = false
-				get_node("/root/Game/front_effect/front_effect_sprite_P2").stop()
