@@ -31,7 +31,9 @@ class Player:
 	var attack_action;
 	var block_action;
 	var current_animation;
-	var charge_frames;
+	var charge_frames: int;
+	var stun_frames: int;
+	var stun_block_frames: int;
 	var is_charging;
 	var current_attack_type;
 	
@@ -67,13 +69,20 @@ class Player:
 		self.current_animation = new_animation;
 		self.sprite.play(new_animation);
 	func is_action_allowed() -> bool:
-		return self.current_animation == Animations.IDLE \
+		return !self.is_stunned() \
+			|| self.current_animation == Animations.IDLE \
 			|| self.current_animation == Animations.DEAD \
 			|| self.current_animation == Animations.BLOCK \
 			|| self.current_animation == Animations.PARADE \
 			|| self.current_animation == Animations.COUNTER \
 			|| self.current_animation == Animations.HIT;
 	
+	func compute_stun_block():
+		if !self.is_block_available():
+			self.stun_block_frames -= 1;
+	func compute_stun():
+		if self.is_stunned:
+			self.stun_frames -= 1;	
 	func compute_charge():
 		if self.is_charging:
 			self.increment_charge_frames();
@@ -89,7 +98,6 @@ class Player:
 		self.charge_frames += 1;
 		if self.charge.has(self.charge_frames):
 			self.charge[self.charge_frames].emit();
-		
 	func reset_charge_frames():
 		self.charge_frames = 0;
 	func is_max_charge():
@@ -114,7 +122,16 @@ class Player:
 			self.set_current_animation(Animations.HIT);
 		
 		return damage;
-				
+			
+	func set_stun_block_frames(value) -> void:
+		self.stun_block_frames = value;	
+	func set_stun_frames(value) -> void:
+		self.stun_frames = value;
+	
+	func is_block_available() -> bool:
+		return self.stun_block_frames < 1;
+	func is_stunned() -> bool:
+		return self.stun_frames < 1;
 	func is_dead() -> bool:
 		return self.life < 1;
 
@@ -125,7 +142,9 @@ class Player:
 func attack_received(attack_type) -> void:
 	var damage = player.compute_received_attack(attack_type);
 	if damage:
+		player.set_stun_frames(player_stats.hit_stun_frames[attack_type]);
 		on_damage_taken.emit(damage);
+		
 	if player.is_dead():
 		player.is_combat_ongoing = false;
 		on_dead.emit();
@@ -140,6 +159,8 @@ func win_combat() -> void:
 signal on_attack();
 signal on_charge_medium();
 signal on_charge_strong();
+
+signal on_stun();
 
 signal on_block_start();
 signal on_block_end();
@@ -194,6 +215,7 @@ func _input(event) -> void:
 		
 	if event.is_action_released(player.block_action):
 		player.set_current_animation(Animations.IDLE);
+		player.set_stun_block_frames(player_stats.stun_block_frames)
 		on_block_end.emit();
 	
 	if !player.is_action_allowed():
@@ -201,9 +223,11 @@ func _input(event) -> void:
 	
 	if event.is_action_pressed(player.attack_action):
 		player.set_current_animation(Animations.CHARGE);
-	if event.is_action_pressed(player.block_action):
+	if event.is_action_pressed(player.block_action) && player.is_block_available():
 		player.set_current_animation(Animations.PARADE);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	player.compute_stun();
+	player.compute_stun_block();
 	player.compute_charge();

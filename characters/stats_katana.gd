@@ -22,15 +22,11 @@ extends Node
 	Constants.attack_type.MEDIUM: 12,
 	Constants.attack_type.STRONG: 17
 };
-@export var stun_block_frames = {
-	Constants.attack_type.LIGHT: 2,
-	Constants.attack_type.MEDIUM: null,
-	Constants.attack_type.STRONG: null
-};
+@export var stun_block_frames = 2;
 @export var hit_stun_frames = {
 	Constants.attack_type.LIGHT: 5,
 	Constants.attack_type.MEDIUM: 8,
-	Constants.attack_type.STRONG: null
+	Constants.attack_type.STRONG: 0
 };
 @export var attack_damage = {
 	Constants.attack_type.LIGHT: 1,
