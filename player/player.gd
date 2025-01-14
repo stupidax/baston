@@ -12,7 +12,7 @@ const Animations = {
 	"IDLE": "idle", 
 	"PARADE": "parade",
 	"VICTORY": "victory"
-}
+};
 
 func from_frame_to_attack_type(frame_number):
 	if frame_number >= player_stats.charge_frames[Constants.attack_type.STRONG]:
@@ -37,7 +37,7 @@ class Player:
 	var is_charging;
 	var current_attack_type;
 	
-	var on_attack;
+	var on_attack_hit;
 	var on_parade;
 	var on_block;
 	
@@ -61,7 +61,7 @@ class Player:
 		self.is_charging = false;
 		self.is_combat_ongoing = false;
 		
-		self.on_attack = attack_signal;
+		self.on_attack_hit = attack_signal;
 		self.on_parade = parade_signal;
 		self.on_block = block_signal;
 	
@@ -91,7 +91,7 @@ class Player:
 			
 		if self.is_max_charge():
 			self.current_attack_type = Constants.attack_type.STRONG;
-			self.sprite.play(Animations.ATTACK_STRONG);
+			self.set_current_animation(Animations.ATTACK_STRONG);
 			self.is_charging = false;
 			self.reset_charge_frames();
 	func increment_charge_frames():
@@ -135,6 +135,7 @@ class Player:
 	func is_dead() -> bool:
 		return self.life < 1;
 
+@export var player_id: int;
 @export var player_attack: String;
 @export var player_block: String;
 @export var player_stats: Node;
@@ -156,7 +157,7 @@ func win_combat() -> void:
 	player.is_combat_ongoing = false;
 	player.set_current_animation(Animations.VICTORY);
 
-signal on_attack();
+signal on_attack_hit();
 signal on_charge_medium();
 signal on_charge_strong();
 
@@ -175,7 +176,7 @@ var player;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = Player.new(player_stats, $AnimatedSprite2D, player_attack, player_block, \
-		on_attack, on_charge_medium, on_charge_strong, on_parade, on_attack_blocked);
+		on_attack_hit, on_charge_medium, on_charge_strong, on_parade, on_attack_blocked);
 	$AnimatedSprite2D.frame_changed.connect(_animation_progress.bind($AnimatedSprite2D));
 	$AnimatedSprite2D.animation_finished.connect(_animation_end.bind($AnimatedSprite2D));
 	player.is_combat_ongoing = true;
@@ -191,7 +192,7 @@ func _animation_progress(sprite) -> void:
 func _handleAttackSignal(sprite, attack_type) -> void:
 	if sprite.animation == Animations["ATTACK_" + attack_type] && \
 		sprite.frame == player_stats.start_up_frames[attack_type] + player_stats.active_frames[attack_type]:
-		player.on_attack.emit(player.current_attack_type);
+		player.on_attack_hit.emit(player.current_attack_type);
 
 func _animation_end(sprite) -> void:
 	if sprite.animation == Animations.VICTORY:
@@ -209,13 +210,13 @@ func _input(event) -> void:
 	
 	if event.is_action_released(player.attack_action) && player.current_animation == Animations.CHARGE:
 		player.current_attack_type = from_frame_to_attack_type(player.charge_frames);
-		$AnimatedSprite2D.play(Animations["ATTACK_" + player.current_attack_type]);
+		player.set_current_animation(Animations["ATTACK_" + player.current_attack_type]);
 		player.is_charging = false;
 		player.reset_charge_frames();
 		
 	if event.is_action_released(player.block_action):
 		player.set_current_animation(Animations.IDLE);
-		player.set_stun_block_frames(player_stats.stun_block_frames)
+		#player.set_stun_block_frames(player_stats.stun_block_frames)
 		on_block_end.emit();
 	
 	if !player.is_action_allowed():

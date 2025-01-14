@@ -22,6 +22,7 @@ extends Node
 	Constants.attack_type.MEDIUM: 10,
 	Constants.attack_type.STRONG: 15
 };
+@export var block_recovery_frames = 2;
 @export var stun_block_frames = 1;
 @export var hit_stun_frames = {
 	Constants.attack_type.LIGHT: 6,

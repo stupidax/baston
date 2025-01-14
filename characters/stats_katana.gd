@@ -6,7 +6,7 @@ extends Node
 	Constants.attack_type.MEDIUM: 5,
 	Constants.attack_type.STRONG: 22
 };
-@export var charge_frames_cap = 15;
+@export var charge_frames_cap = 27;
 @export var start_up_frames = {
 	Constants.attack_type.LIGHT: 4,
 	Constants.attack_type.MEDIUM: 8,
@@ -22,6 +22,7 @@ extends Node
 	Constants.attack_type.MEDIUM: 12,
 	Constants.attack_type.STRONG: 17
 };
+@export var block_recovery_frames = 2;
 @export var stun_block_frames = 2;
 @export var hit_stun_frames = {
 	Constants.attack_type.LIGHT: 5,

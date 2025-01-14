@@ -626,5 +626,5 @@ script = ExtResource("1_di8lt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
-animation = &"victory"
+animation = &"charge"
 autoplay = "idle"

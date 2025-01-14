@@ -9,8 +9,14 @@ const LIFE_RATIO = FULL_LIFE / 10;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	p1_node.connect("on_attack", self.handleAttack.bind(p2_node));
-	p2_node.connect("on_attack", self.handleAttack.bind(p1_node));
+	p1_node.connect("on_attack_hit", self.handleAttack.bind(p2_node));
+	p2_node.connect("on_attack_hit", self.handleAttack.bind(p1_node));
+	
+	p1_node.connect("on_charge_medium", self.handleChargeMedium.bind(p1_node));
+	p2_node.connect("on_charge_medium", self.handleChargeMedium.bind(p2_node));
+	
+	p1_node.connect("on_charge_strong", self.handleChargeStrong.bind(p1_node));
+	p2_node.connect("on_charge_strong", self.handleChargeStrong.bind(p2_node));
 	
 	p1_node.connect("on_parade", self.handleParade.bind(p1_node, p2_node));
 	p2_node.connect("on_parade", self.handleParade.bind(p2_node, p1_node));
@@ -24,8 +30,8 @@ func _ready() -> void:
 	p1_node.connect("on_attack_blocked", self.handleAttackBlocked.bind(p2_node));
 	p2_node.connect("on_attack_blocked", self.handleAttackBlocked.bind(p1_node));
 	
-	p1_node.connect("on_damage_taken", self.handleDamageTaken.bind(1));
-	p2_node.connect("on_damage_taken", self.handleDamageTaken.bind(2));
+	p1_node.connect("on_damage_taken", self.handleDamageTaken.bind(p1_node));
+	p2_node.connect("on_damage_taken", self.handleDamageTaken.bind(p2_node));
 	
 	ui_node.player_change_life("gain", FULL_LIFE, 1);
 	ui_node.player_change_life("gain", FULL_LIFE, 2);
@@ -47,12 +53,22 @@ func handleBlockEnd(player_node) -> void:
 	# TODO: update UI
 	pass
 	
+func handleChargeMedium(player_node) -> void:
+	print("test medium")
+	# TODO: update charge animation
+	pass
+	
+func handleChargeStrong(player_node) -> void:
+	print("test strong")
+	# TODO: update charge animation
+	pass
+	
 func handleAttackBlocked(player_node) -> void:
 	# TODO: update UI
 	pass
 
-func handleDamageTaken(damage, player_number) -> void:
-	ui_node.player_change_life("lose", damage * LIFE_RATIO, player_number);
+func handleDamageTaken(damage, player_node) -> void:
+	ui_node.player_change_life("lose", damage * LIFE_RATIO, player_node.player_id);
 	
 func endCombat(winner_player):
 	winner_player.win_combat();
