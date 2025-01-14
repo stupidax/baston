@@ -1,10 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://xmbevsvxgiwb"]
+[gd_scene load_steps=27 format=3 uid="uid://xmbevsvxgiwb"]
 
 [ext_resource type="Texture2D" uid="uid://dqd8tu7ob1ic" path="res://assets/block_effect.png" id="1_v2f7r"]
-[ext_resource type="Texture2D" uid="uid://cn3h8m8f5lcap" path="res://assets/light_effect.png" id="2_u5qt5"]
-[ext_resource type="Texture2D" uid="uid://dh3ekju4pdavi" path="res://assets/med_effect.png" id="3_q2808"]
+[ext_resource type="Texture2D" uid="uid://cpyesdr15wmla" path="res://assets/effect_0.png" id="2_c4kgu"]
 [ext_resource type="Texture2D" uid="uid://bf7sj8xsw84hn" path="res://assets/par_effect.png" id="4_2wruy"]
-[ext_resource type="Texture2D" uid="uid://der26ej7upm2b" path="res://assets/str_effect.png" id="5_jyoxk"]
 [ext_resource type="Script" path="res://hit_effect.gd" id="6_1gyjt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4btt3"]
@@ -23,33 +21,33 @@ region = Rect2(60, 0, 30, 30)
 atlas = ExtResource("1_v2f7r")
 region = Rect2(90, 0, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cjvbk"]
-atlas = ExtResource("2_u5qt5")
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8k1a"]
+atlas = ExtResource("2_c4kgu")
 region = Rect2(0, 0, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yohmo"]
-atlas = ExtResource("2_u5qt5")
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7a0e"]
+atlas = ExtResource("2_c4kgu")
 region = Rect2(30, 0, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bwb4e"]
-atlas = ExtResource("2_u5qt5")
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrldn"]
+atlas = ExtResource("2_c4kgu")
 region = Rect2(60, 0, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3k1yc"]
-atlas = ExtResource("3_q2808")
-region = Rect2(0, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_wn2we"]
+atlas = ExtResource("2_c4kgu")
+region = Rect2(0, 30, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y8l8f"]
-atlas = ExtResource("3_q2808")
-region = Rect2(30, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6cn4"]
+atlas = ExtResource("2_c4kgu")
+region = Rect2(30, 30, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fu1c2"]
-atlas = ExtResource("3_q2808")
-region = Rect2(60, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_erd7w"]
+atlas = ExtResource("2_c4kgu")
+region = Rect2(60, 30, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b53pl"]
-atlas = ExtResource("3_q2808")
-region = Rect2(90, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgy3d"]
+atlas = ExtResource("2_c4kgu")
+region = Rect2(90, 30, 30, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fkpio"]
 atlas = ExtResource("4_2wruy")
@@ -75,29 +73,21 @@ region = Rect2(120, 0, 30, 30)
 atlas = ExtResource("4_2wruy")
 region = Rect2(150, 0, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ajl18"]
-atlas = ExtResource("5_jyoxk")
-region = Rect2(0, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2j38k"]
+atlas = ExtResource("2_c4kgu")
+region = Rect2(0, 90, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1hdgy"]
-atlas = ExtResource("5_jyoxk")
-region = Rect2(30, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbiud"]
+atlas = ExtResource("2_c4kgu")
+region = Rect2(30, 90, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_al2wq"]
-atlas = ExtResource("5_jyoxk")
-region = Rect2(60, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_om26c"]
+atlas = ExtResource("2_c4kgu")
+region = Rect2(60, 90, 30, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_egag6"]
-atlas = ExtResource("5_jyoxk")
-region = Rect2(90, 0, 30, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eryfv"]
-atlas = ExtResource("5_jyoxk")
-region = Rect2(120, 0, 30, 30)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ujpn"]
-atlas = ExtResource("5_jyoxk")
-region = Rect2(150, 0, 30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdt2v"]
+atlas = ExtResource("2_c4kgu")
+region = Rect2(90, 90, 30, 30)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lbnk5"]
 animations = [{
@@ -120,13 +110,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cjvbk")
+"texture": SubResource("AtlasTexture_c8k1a")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yohmo")
+"texture": SubResource("AtlasTexture_e7a0e")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bwb4e")
+"texture": SubResource("AtlasTexture_rrldn")
 }],
 "loop": false,
 "name": &"hit_light",
@@ -134,16 +124,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3k1yc")
+"texture": SubResource("AtlasTexture_wn2we")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y8l8f")
+"texture": SubResource("AtlasTexture_u6cn4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fu1c2")
+"texture": SubResource("AtlasTexture_erd7w")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b53pl")
+"texture": SubResource("AtlasTexture_rgy3d")
 }],
 "loop": false,
 "name": &"hit_medium",
@@ -174,22 +164,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ajl18")
+"texture": SubResource("AtlasTexture_2j38k")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1hdgy")
+"texture": SubResource("AtlasTexture_rbiud")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_al2wq")
+"texture": SubResource("AtlasTexture_om26c")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_egag6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eryfv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ujpn")
+"texture": SubResource("AtlasTexture_qdt2v")
 }],
 "loop": false,
 "name": &"hit_strong",
@@ -198,7 +182,7 @@ animations = [{
 
 [node name="hit_effect" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_lbnk5")
-animation = &"hit_block"
+animation = &"hit_strong"
 script = ExtResource("6_1gyjt")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
