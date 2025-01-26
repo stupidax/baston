@@ -4,40 +4,30 @@ extends Node
 @onready var p2_node = get_parent().get_node("Player2");
 @onready var ui_node = get_parent().get_node("Control/UI");
 
+func get_linked_player(link_type, player_node) -> Node2D:
+	if link_type == "same":
+		if player_node.player_id == p1_node.player_id: return p1_node;
+		else: return p2_node;
+	elif link_type == "opposite":
+		if player_node.player_id == p1_node.player_id: return p2_node;
+		else: return p1_node;
+	else:
+		return player_node;
+
 const FULL_LIFE = 30;
 const LIFE_RATIO = FULL_LIFE / 10;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	p1_node.connect("on_attack_hit", self.handleAttack.bind(p2_node));
-	p2_node.connect("on_attack_hit", self.handleAttack.bind(p1_node));
-	
-	p1_node.connect("on_charge_medium", self.handleChargeMedium.bind(p1_node));
-	p2_node.connect("on_charge_medium", self.handleChargeMedium.bind(p2_node));
-	
-	p1_node.connect("on_charge_strong", self.handleChargeStrong.bind(p1_node));
-	p2_node.connect("on_charge_strong", self.handleChargeStrong.bind(p2_node));
-	
-	p1_node.connect("on_parade", self.handleParade.bind(p1_node, p2_node));
-	p2_node.connect("on_parade", self.handleParade.bind(p2_node, p1_node));
-	
-	p1_node.connect("on_block_start", self.handleBlockStart.bind(p1_node));
-	p2_node.connect("on_block_start", self.handleBlockStart.bind(p2_node));
-	
-	p1_node.connect("on_block_end", self.handleBlockEnd.bind(p1_node));
-	p2_node.connect("on_block_end", self.handleBlockEnd.bind(p2_node));
-	
-	p1_node.connect("on_attack_blocked", self.handleAttackBlocked.bind(p2_node));
-	p2_node.connect("on_attack_blocked", self.handleAttackBlocked.bind(p1_node));
-	
-	p1_node.connect("on_damage_taken", self.handleDamageTaken.bind(p1_node));
-	p2_node.connect("on_damage_taken", self.handleDamageTaken.bind(p2_node));
+	var combat_signals = get_node("combat_signals").get_script().signals;
+	for s in combat_signals:
+		for p_node in [p1_node, p2_node]:
+			var p_bound = get_linked_player(combat_signals[s].link_type, p_node);
+			p_node.connect(s, self[combat_signals[s].function_name].bind(p_bound));
 	
 	ui_node.player_change_life("gain", FULL_LIFE, 1);
 	ui_node.player_change_life("gain", FULL_LIFE, 2);
 	
-	p1_node.connect("on_dead", self.endCombat.bind(p2_node));
-	p2_node.connect("on_dead", self.endCombat.bind(p1_node));
 
 func handleAttack(attack_type, player_node) -> void:
 	player_node.attack_received(attack_type);

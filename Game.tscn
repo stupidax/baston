@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ciqbftem0fy0r"]
+[gd_scene load_steps=16 format=3 uid="uid://ciqbftem0fy0r"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://gmmnh2kl0cl0" path="res://player/Player.tscn" id="2"]
@@ -11,7 +11,9 @@
 [ext_resource type="Script" path="res://characters/stats_katana.gd" id="6_mk7t5"]
 [ext_resource type="Script" path="res://constants.gd" id="7_yu4sk"]
 [ext_resource type="Script" path="res://characters/stats_dagger.gd" id="8_f0y27"]
+[ext_resource type="Script" path="res://combat/combat_signals.gd" id="8_qiwhe"]
 [ext_resource type="PackedScene" path="res://bg_frontground.tscn" id="9_6asdv"]
+[ext_resource type="Script" path="res://combat/combat_server.gd" id="9_bwfup"]
 [ext_resource type="PackedScene" path="res://begin_fight.tscn" id="10_1i13m"]
 
 [node name="Game" type="Node2D"]
@@ -42,14 +44,15 @@ metadata/_edit_lock_ = true
 position = Vector2(32, 35)
 player_id = 1
 player_attack = "p1_attack"
-player_block = "p1_block"
+player_parade = "p1_parade"
 player_stats = NodePath("../Stats/Katana")
+is_server = true
 
 [node name="Player2" parent="." node_paths=PackedStringArray("player_stats") instance=ExtResource("3_vbsnq")]
 position = Vector2(47, 35)
 player_id = 2
 player_attack = "p2_attack"
-player_block = "p2_block"
+player_parade = "p2_parade"
 player_stats = NodePath("../Stats/Dagger")
 
 [node name="front_effect" type="Node2D" parent="."]
@@ -72,6 +75,12 @@ metadata/_edit_lock_ = true
 
 [node name="Combat" type="Node" parent="."]
 script = ExtResource("3_c4djo")
+
+[node name="combat_signals" type="Node" parent="Combat"]
+script = ExtResource("8_qiwhe")
+
+[node name="combat_multiplayer" type="Node" parent="Combat"]
+script = ExtResource("9_bwfup")
 
 [node name="Control" type="Control" parent="."]
 custom_minimum_size = Vector2(80, 45)

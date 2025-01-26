@@ -1,8 +1,9 @@
-[gd_scene load_steps=54 format=3 uid="uid://gmmnh2kl0cl0"]
+[gd_scene load_steps=55 format=3 uid="uid://gmmnh2kl0cl0"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_di8lt"]
 [ext_resource type="Texture2D" uid="uid://d2jfbmh3d0ae3" path="res://assets/char0.png" id="2_bc68b"]
 [ext_resource type="Texture2D" uid="uid://67picj1ya47i" path="res://assets/char0_final.png" id="3_i7ge8"]
+[ext_resource type="Script" path="res://player/player_class.gd" id="4_8vsrf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kagdb"]
 atlas = ExtResource("3_i7ge8")
@@ -428,7 +429,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("17")
 }],
-"loop": true,
+"loop": false,
 "name": &"block",
 "speed": 5.0
 }, {
@@ -626,5 +627,8 @@ script = ExtResource("1_di8lt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
-animation = &"charge"
+animation = &"block"
 autoplay = "idle"
+
+[node name="Class" type="Node" parent="."]
+script = ExtResource("4_8vsrf")
