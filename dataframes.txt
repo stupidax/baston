@@ -1,0 +1,197 @@
+=============================================
+
+	B A S T O N
+
+=============================================
+
+60 FPS
+30 frames = 0.5 sec
+à voir si c'est trop rapide.
+
+3 Type d'attaque
+
+Light	(L)
+Medium	(M)
+Strong	(S)
+Counter (C)
+Parade  (P)
+
+Charge frames
+	mini	max
+L	-	-
+M	15	25
+S	25	35
+Cap	35	45
+
+Le cap représente la valeur maximale que l'on peut charger avant que l'attaque strong se lance automatiquement.
+Il y a donc la possibilité de relâcher avant pour gagner quelques frames.
+
+
+Start frames
+	mini	max
+L	12	18
+M	18	26
+S	26	36
+C	30	30
+
+Activ Frames
+	mini	max
+L	3	3
+M	5	5
+S	8	8
+C	-	-
+
+Il n'y a pas d'active frame sur le counter, si la parade est réussie, le déroulement de la contre-attaque se fait "automatiquement"
+l'adversaire est en pause, le jeu déroule l'action de contre-attaque et reprend en phase neutre pour chacun, comme une attaque strong.
+
+Recovery Frames
+	mini	max
+L	18	28
+M	28	40
+S	60	60
+C	60	60
+
+Block Stun
+	mini	max
+L	10	15
+M	25	35
+S	-	-
+C	-	-
+
+Hit Stun
+	mini	max
+L	3	6
+M	7	9
+H	60+*	60+*
+C	60	60
+
+* ajouter les frames en fonction du moment de l'active frame de l'attaque.
+si l'attaquant touche à la frame active 3/5, il va attendre 2 frame active de plus avant d'avoir les 60 pour revenir à l'état neutre
+il faut donc ajouter les 2 frame manquantes au hit stun pour chaque personnage retrouve l'état neutre au même moment.
+
+
+========================================================
+
+P1 : Katana
+
+========================================================
+
+Charge frames
+L	-
+M	20
+S	30
+Cap	40
+
+Start frames
+L	16
+M	22
+S	32
+C	30
+
+Activ Frames
+L	3
+M	5
+S	8
+C	-
+
+Recovery Frames
+L	23
+M	34
+S	60
+C	60
+
+Block Stun
+L	12
+M	30
+S	-
+C	-
+
+Hit Stun
+L	4
+M	8
+H	60+*
+C	60
+
+========================================================
+
+P2 : Daguer
+
+========================================================
+
+Charge frames
+L	-
+M	15
+S	25
+Cap	35
+
+Start frames
+L	12
+M	18
+S	26
+C	30
+
+Activ Frames
+L	3
+M	5
+S	8
+C	-
+
+Recovery Frames
+L	18
+M	28
+S	60
+C	60
+
+Block Stun
+L	10
+M	25
+S	-
+C	-
+
+Hit Stun
+L	3
+M	7
+H	60+*
+C	60
+
+========================================================
+
+P3 : Axe
+
+========================================================
+
+Charge frames
+L	-
+M	25
+S	35
+Cap	45
+
+Start frames
+L	18
+M	26
+S	36
+C	30
+
+Activ Frames
+L	3
+M	5
+S	8
+C	-
+
+Recovery Frames
+L	28
+M	40
+S	60
+C	60
+
+Block Stun
+L	15
+M	35
+S	-
+C	-
+
+Hit Stun
+L	6
+M	9
+H	60+*
+C	60
