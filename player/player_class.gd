@@ -27,6 +27,7 @@ class Player:
 	var charge_frames: int;
 	var hit_stun_frames: int;
 	var block_stun_frames: int;
+	var pause_frames: int;
 	var frames_data;
 	var is_charging;
 	var keep_charge;
@@ -46,7 +47,7 @@ class Player:
 		};
 		self.max_charge = stats_param.charge_frames[Constants.key_word.CAP];
 		self.frames_data = stats_param;
-		# TODO: loop instead
+
 		self.damage = stats_param.attack_damage;
 		
 		self.sprite = sprite_param;
@@ -107,13 +108,13 @@ class Player:
 			&& self.sprite.frame <= self.frames_data.start_up_frames[Constants.key_word.PARADE] + self.frames_data.active_frames[Constants.key_word.PARADE]:
 			
 			self.set_current_animation(Animations.COUNTER);
-			self.on_parade.emit();
+			self.on_parade.emit(self.frames_data.counter_frames);
 		elif attack_received != Constants.attack_type.STRONG \
 			&& self.current_animation == Animations.IDLE:
 				
 			self.set_current_animation(Animations.BLOCK);
-			self.set_block_stun_frames(self.frames_data.hit_stun_frames[attack_received]);
-			self.on_block.emit();
+			self.set_block_stun_frames(self.frames_data.block_stun_frames[attack_received]);
+			self.on_block.emit(attack_received);
 		else:
 			damage = self.damage[attack_received];
 			is_hit = true;
@@ -129,7 +130,6 @@ class Player:
 	func compute_hit(attack_received):
 		var is_interrupted = self.can_interrupt(attack_received);
 		if attack_received == Constants.attack_type.LIGHT:
-			# TODO: Might be replacable by other animation
 			self.compute_keep_charge();
 			is_interrupted = self.is_keeping_charge();
 		else:
@@ -143,7 +143,16 @@ class Player:
 	func compute_hit_stun():
 		if self.is_stunned:
 			self.hit_stun_frames -= 1;
+	func compute_pause():
+		if self.pause_frames >= 1:
+			self.pause_frames -= 1;
+		elif !self.sprite.is_playing():
+			self.set_current_animation(Animations.IDLE);
 	
+	
+	func pause_animation(nb_frames):
+		self.sprite.pause();
+		self.pause_frames = nb_frames;
 	func set_current_animation(new_animation):
 		self.current_animation = new_animation;
 		self.sprite.play(new_animation);
@@ -154,11 +163,12 @@ class Player:
 	
 	func can_interrupt(attack_type) -> bool:
 		return self.current_animation == Animations.CHARGE \
-			|| self.current_animation == "PARADE" && self.frames_data.start_up_frames[attack_type] \
-			|| self.current_animation == "ATTACK_" + attack_type && self.frames_data.start_up_frames[attack_type];
+			|| self.current_animation == "PARADE" && self.sprite.frame <= self.frames_data.start_up_frames[Constants.key_word.PARADE] \
+			|| self.current_animation == "ATTACK_" + attack_type && self.sprite.frame <= self.frames_data.start_up_frames[attack_type];
 	func is_action_allowed() -> bool:
 		return !self.is_stunned() \
-			|| self.current_animation == Animations.IDLE
+			|| self.current_animation == Animations.IDLE \
+			|| self.current_animation == Animations.CHARGE;
 	func is_parade_available() -> bool:
 		return self.is_action_allowed() || self.is_charging;
 	func is_stunned() -> bool:

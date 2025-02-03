@@ -21,14 +21,6 @@ const signals = {
 		"function_name": "handleChargeStrong",
 		"link_type": "same"
 	},
-	"on_block_start": {
-		"function_name": "handleBlockStart",
-		"link_type": "same"
-	},
-	"on_block_end": {
-		"function_name": "handleBlockEnd",
-		"link_type": "same"
-	},
 	"on_damage_taken": {
 		"function_name": "handleDamageTaken",
 		"link_type": "same"

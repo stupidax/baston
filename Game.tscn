@@ -118,3 +118,4 @@ script = ExtResource("6_mk7t5")
 
 [node name="Dagger" type="Node" parent="Stats"]
 script = ExtResource("8_f0y27")
+life = 15

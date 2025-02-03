@@ -32,16 +32,8 @@ func _ready() -> void:
 func handleAttack(attack_type, player_node) -> void:
 	player_node.attack_received(attack_type);
 
-func handleParade(player_node) -> void:
-	player_node.parade_received();
-	
-func handleBlockStart(player_node) -> void:
-	# TODO: update UI
-	pass
-	
-func handleBlockEnd(player_node) -> void:
-	# TODO: update UI
-	pass
+func handleParade(nb_frames, player_node) -> void:
+	player_node.parade_received(nb_frames);
 	
 func handleChargeMedium(player_node) -> void:
 	print("test medium")
@@ -53,7 +45,7 @@ func handleChargeStrong(player_node) -> void:
 	# TODO: update charge animation
 	pass
 	
-func handleAttackBlocked(player_node) -> void:
+func handleAttackBlocked(attack_type, player_node) -> void:
 	# TODO: update UI
 	pass
 
