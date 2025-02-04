@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6wmf3y330h3j"]
+[gd_scene load_steps=10 format=3 uid="uid://c6wmf3y330h3j"]
 
 [ext_resource type="Texture2D" uid="uid://4iknn6aadkky" path="res://assets/char_katana.png" id="1_uxhqn"]
 
@@ -124,9 +124,26 @@ tracks/0/keys = {
 "values": [Vector2i(2, 11), Vector2i(3, 11), Vector2i(4, 11), Vector2i(5, 11), Vector2i(0, 3), Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3), Vector2i(5, 3)]
 }
 
+[sub_resource type="Animation" id="Animation_djw12"]
+resource_name = "block"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.53333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l1u4d"]
 _data = {
 "RESET": SubResource("Animation_5ng4e"),
+"block": SubResource("Animation_djw12"),
 "charge": SubResource("Animation_mb4h2"),
 "idle": SubResource("Animation_7wtw2"),
 "light": SubResource("Animation_sufy0"),
