@@ -46,7 +46,9 @@ func win_combat() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player = get_node("Class").Player.new(player_stats, player_sprite || $AnimatedSprite2D, player_attack, player_parade, \
+	if !player_sprite:
+		player_sprite = $AnimatedSprite2D
+	player = get_node("Class").Player.new(player_stats, player_sprite, player_attack, player_parade, \
 		on_attack_hit, on_charge_medium, on_charge_strong, on_parade, on_attack_blocked);
 	player_sprite.frame_changed.connect(_animation_progress.bind(player_sprite));
 	player_sprite.animation_finished.connect(_animation_end.bind(player_sprite));
