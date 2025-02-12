@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ciqbftem0fy0r"]
+[gd_scene load_steps=18 format=3 uid="uid://ciqbftem0fy0r"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://gmmnh2kl0cl0" path="res://player/Player.tscn" id="2"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" path="res://combat.gd" id="3_c4djo"]
 [ext_resource type="PackedScene" uid="uid://bwku31omujaqk" path="res://player/Player2.tscn" id="3_vbsnq"]
 [ext_resource type="PackedScene" uid="uid://by2ygdypl8nj8" path="res://ui.tscn" id="4_qtu3f"]
+[ext_resource type="PackedScene" uid="uid://c6wmf3y330h3j" path="res://player_test.tscn" id="5_2h2is"]
 [ext_resource type="PackedScene" uid="uid://c4gjtge7qh2jq" path="res://front_effect_sprite.tscn" id="5_ferps"]
+[ext_resource type="Script" path="res://player/player.gd" id="6_h6sws"]
 [ext_resource type="Script" path="res://characters/stats_katana.gd" id="6_mk7t5"]
 [ext_resource type="Script" path="res://constants.gd" id="7_yu4sk"]
 [ext_resource type="Script" path="res://characters/stats_dagger.gd" id="8_f0y27"]
@@ -40,13 +42,20 @@ frame = 1
 frame_progress = 0.0
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." node_paths=PackedStringArray("player_stats") instance=ExtResource("2")]
+[node name="Player_old" parent="." node_paths=PackedStringArray("player_stats") instance=ExtResource("2")]
+visible = false
 position = Vector2(32, 35)
 player_id = 1
 player_attack = "p1_attack"
 player_parade = "p1_parade"
 player_stats = NodePath("../Stats/Katana")
 is_server = true
+
+[node name="Player" parent="." instance=ExtResource("5_2h2is")]
+position = Vector2(31.5, 34.5)
+script = ExtResource("6_h6sws")
+player_attack = "p1_attack"
+player_parade = "p2_parade"
 
 [node name="Player2" parent="." node_paths=PackedStringArray("player_stats") instance=ExtResource("3_vbsnq")]
 position = Vector2(47, 35)
