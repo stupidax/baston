@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://c6wmf3y330h3j"]
+[gd_scene load_steps=16 format=3 uid="uid://b1si3mnkfj6ms"]
 
 [ext_resource type="Texture2D" uid="uid://cjiie8u76hklp" path="res://assets/Main_Axe.png" id="1_2aypa"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_i7hi6"]
 
 [sub_resource type="Animation" id="Animation_d1tjk"]
 resource_name = "Counter"
@@ -142,7 +143,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_sufy0"]
-resource_name = "light"
+resource_name = "attack_light"
 length = 0.783337
 step = 0.0166667
 tracks/0/type = "value"
@@ -159,7 +160,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_3tar3"]
-resource_name = "medium"
+resource_name = "attack_medium"
 length = 1.11667
 step = 0.0166667
 tracks/0/type = "value"
@@ -175,23 +176,8 @@ tracks/0/keys = {
 "values": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
 }
 
-[sub_resource type="Animation" id="Animation_0rflr"]
-resource_name = "parry"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.466667, 0.6, 0.733333, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [100, 101, 102, 103, 104, 105, 106]
-}
-
 [sub_resource type="Animation" id="Animation_wp71k"]
-resource_name = "strong"
+resource_name = "attack_strong"
 length = 1.61667
 step = 0.0166667
 tracks/0/type = "value"
@@ -207,6 +193,21 @@ tracks/0/keys = {
 "values": [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
 }
 
+[sub_resource type="Animation" id="Animation_0rflr"]
+resource_name = "parade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.466667, 0.6, 0.733333, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [100, 101, 102, 103, 104, 105, 106]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l1u4d"]
 _data = {
 "Counter": SubResource("Animation_d1tjk"),
@@ -214,16 +215,17 @@ _data = {
 "Hit": SubResource("Animation_5t7fw"),
 "RESET": SubResource("Animation_en8gi"),
 "Victory": SubResource("Animation_lc5i3"),
+"attack_light": SubResource("Animation_sufy0"),
+"attack_medium": SubResource("Animation_3tar3"),
+"attack_strong": SubResource("Animation_wp71k"),
 "block": SubResource("Animation_djw12"),
 "charge": SubResource("Animation_mb4h2"),
 "idle": SubResource("Animation_7wtw2"),
-"light": SubResource("Animation_sufy0"),
-"medium": SubResource("Animation_3tar3"),
-"parry": SubResource("Animation_0rflr"),
-"strong": SubResource("Animation_wp71k")
+"parade": SubResource("Animation_0rflr")
 }
 
-[node name="Player" type="Node2D"]
+[node name="Player2" type="Node2D"]
+script = ExtResource("1_i7hi6")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_2aypa")

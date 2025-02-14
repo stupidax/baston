@@ -1,7 +1,7 @@
 extends Node2D
 
-var player;
-@onready var Animations = get_node("Class").get_script().Animations;
+var player: PlayerClass;
+@onready var Animations = PlayerClass.Animations;
 
 signal on_attack_hit(attack_type);
 signal on_charge_medium();
@@ -16,7 +16,7 @@ signal on_dead();
 @export var player_attack: String;
 @export var player_parade: String;
 @export var player_stats: Node;
-@export var player_sprite: AnimatedSprite2D;
+@export var player_sprite: Sprite2D;
 @export var is_server: bool;
 
 
@@ -47,39 +47,39 @@ func win_combat() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if !player_sprite:
-		player_sprite = $AnimatedSprite2D
-	player = get_node("Class").Player.new(player_stats, player_sprite, player_attack, player_parade, \
+		player_sprite = $Sprite
+	player = PlayerClass.new(player_stats, player_sprite, $AnimationPlayer, player_attack, player_parade, \
 		on_attack_hit, on_charge_medium, on_charge_strong, on_parade, on_attack_blocked);
-	player_sprite.frame_changed.connect(_animation_progress.bind(player_sprite));
-	player_sprite.animation_finished.connect(_animation_end.bind(player_sprite));
+	player_sprite.frame_changed.connect(_animation_progress.bind(player_sprite, $AnimationPlayer));
+	$AnimationPlayer.animation_finished.connect(_animation_end.bind(player_sprite, $AnimationPlayer));
 	player.is_combat_ongoing = true;
 
-func _animation_progress(sprite) -> void:
-	if sprite.animation == Animations.CHARGE && Input.is_action_pressed(player.attack_action):
+func _animation_progress(sprite, animation_player) -> void:
+	if animation_player.current_animation == Animations.CHARGE && Input.is_action_pressed(player.attack_action):
 		player.is_charging = true;
 		
-	_handleAttackSignal(sprite, Constants.attack_type.LIGHT);
-	_handleAttackSignal(sprite, Constants.attack_type.MEDIUM);
-	_handleAttackSignal(sprite, Constants.attack_type.STRONG);
+	_handleAttackSignal(sprite, animation_player, Constants.attack_type.LIGHT);
+	_handleAttackSignal(sprite, animation_player, Constants.attack_type.MEDIUM);
+	_handleAttackSignal(sprite, animation_player, Constants.attack_type.STRONG);
 
-func _handleAttackSignal(sprite, attack_type) -> void:
-	if sprite.animation == Animations["ATTACK_" + attack_type] && \
+func _handleAttackSignal(sprite, animation_player, attack_type) -> void:
+	if animation_player.current_animation == Animations["ATTACK_" + attack_type] && \
 		sprite.frame == player_stats.start_up_frames[attack_type]:
 		player.on_attack_hit.emit(player.current_attack_type);
 
-func _animation_end(sprite) -> void:
-	if sprite.animation == Animations.VICTORY:
+func _animation_end(sprite, animation_player) -> void:
+	if animation_player.current_animation == Animations.VICTORY:
 		sprite.set_frame_and_progress(2, 0.0);
 		sprite.play();
 		
-	elif sprite.animation != Animations.DEAD && sprite.animation != Animations.IDLE:
+	elif animation_player.current_animation != Animations.DEAD && animation_player.current_animation != Animations.IDLE:
 		player.set_current_animation(Animations.IDLE);
 
 func _input(event) -> void:
 	if !player.is_combat_ongoing:
 		return;
 	
-	if event.is_action_released(player.attack_action) && player.current_animation == Animations.CHARGE:
+	if event.is_action_released(player.attack_action) && player.animation_player.current_animation == Animations.CHARGE:
 		handle_attack_input_release();
 	
 	if !player.is_action_allowed():
