@@ -58,12 +58,12 @@ player_parade = "p1_parade"
 player_stats = NodePath("../Stats/Axe")
 
 [node name="Player2" parent="." node_paths=PackedStringArray("player_stats") instance=ExtResource("5_2h2is")]
-position = Vector2(57, 34)
+position = Vector2(60, 33)
 player_id = 2
 player_direction = true
 player_attack = "p2_attack"
 player_parade = "p2_parade"
-player_stats = NodePath("../Stats/Axe")
+player_stats = NodePath("../Stats/Dagger")
 
 [node name="front_effect" type="Node2D" parent="."]
 
