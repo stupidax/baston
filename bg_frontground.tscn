@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3ynwms3bgmm8"]
+[gd_scene load_steps=11 format=3 uid="uid://d3ynwms3bgmm8"]
 
 [ext_resource type="Script" path="res://bg_frontground.gd" id="1_025s7"]
 [ext_resource type="Texture2D" uid="uid://358hhf4ypnxc" path="res://assets/bg_0/bg_0_Layer 2.png" id="1_m0gk2"]
+[ext_resource type="Texture2D" uid="uid://bseb601x3o7rk" path="res://assets/bg_3/bg_3-0.png" id="3_monc4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2if6r"]
 atlas = ExtResource("1_m0gk2")
@@ -14,6 +15,18 @@ region = Rect2(0, 45, 80, 45)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5k8qm"]
 atlas = ExtResource("1_m0gk2")
 region = Rect2(0, 90, 80, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmcpp"]
+atlas = ExtResource("3_monc4")
+region = Rect2(0, 0, 80, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4tm6j"]
+atlas = ExtResource("3_monc4")
+region = Rect2(0, 90, 80, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr5e1"]
+atlas = ExtResource("3_monc4")
+region = Rect2(0, 180, 80, 90)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ndp7a"]
 animations = [{
@@ -28,7 +41,21 @@ animations = [{
 "texture": SubResource("AtlasTexture_5k8qm")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"bg_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmcpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tm6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vr5e1")
+}],
+"loop": true,
+"name": &"bg_3",
 "speed": 5.0
 }]
 
@@ -39,6 +66,5 @@ script = ExtResource("1_025s7")
 [node name="bg_l1" type="AnimatedSprite2D" parent="."]
 position = Vector2(40, 39)
 sprite_frames = SubResource("SpriteFrames_ndp7a")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.261898
+animation = &"bg_3"
+autoplay = "bg_1"

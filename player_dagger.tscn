@@ -1,7 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://b1si3mnkfj6ms"]
+[gd_scene load_steps=16 format=3 uid="uid://c2gl6jl7wn8eb"]
 
-[ext_resource type="Texture2D" uid="uid://cjiie8u76hklp" path="res://assets/Main_Axe.png" id="1_2aypa"]
-[ext_resource type="Script" path="res://player/player.gd" id="1_i7hi6"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_v3xai"]
+[ext_resource type="Texture2D" uid="uid://bwqhcb1o4uvdu" path="res://assets/Main_Dagger.png" id="2_2jbtv"]
 
 [sub_resource type="Animation" id="Animation_d1tjk"]
 resource_name = "Counter"
@@ -13,10 +13,10 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.433333, 0.633333, 0.833333, 1.03333, 1.1, 1.13333, 1.2, 1.3, 1.4, 1.5, 1.63333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.233333, 0.366667, 0.466667, 0.566667, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.26667, 1.33333, 1.4, 1.46667, 1.53333, 1.63333, 1.8, 1.93333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192]
+"values": [200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219]
 }
 
 [sub_resource type="Animation" id="Animation_uo2l0"]
@@ -24,14 +24,14 @@ resource_name = "Die"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.233333, 0.366667, 0.466667, 0.666667, 0.766667, 0.833333, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666667, 0.233333, 0.3, 0.366667, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [160, 161, 162, 163, 164, 165, 166, 167, 168]
+"values": [Vector2i(0, 5), Vector2i(1, 5), Vector2i(2, 5), Vector2i(3, 5), Vector2i(4, 5), Vector2i(5, 5), Vector2i(6, 5)]
 }
 
 [sub_resource type="Animation" id="Animation_5t7fw"]
@@ -44,10 +44,10 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.266667, 0.333333, 0.4, 0.466667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [140, 141, 142, 143, 144, 145, 146]
+"values": [80, 81, 82]
 }
 
 [sub_resource type="Animation" id="Animation_en8gi"]
@@ -87,32 +87,32 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.3, 0.466667, 0.6, 0.766667, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.1, 0.166667, 0.233333, 0.3, 0.366667, 0.433333, 0.5, 0.566667, 0.666667, 0.766667, 0.866667, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [200, 201, 202, 203, 204, 205, 206]
+"values": [220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233]
 }
 
 [sub_resource type="Animation" id="Animation_sufy0"]
 resource_name = "attack_light"
-length = 0.783337
+length = 0.6
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.433333, 0.6, 0.733333),
+"times": PackedFloat32Array(0, 0.116667, 0.183333, 0.266667, 0.4, 0.566667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(5, 1)]
+"values": [20, 21, 22, 23, 24, 25]
 }
 
 [sub_resource type="Animation" id="Animation_3tar3"]
 resource_name = "attack_medium"
-length = 1.11667
+length = 0.8
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -121,15 +121,15 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.4, 0.433333, 0.5, 0.6, 0.716667, 0.8, 0.883333, 0.966667, 1.06667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666667, 0.15, 0.233333, 0.333333, 0.416667, 0.516667, 0.633333, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
+"values": [40, 41, 42, 43, 44, 45, 46, 47, 48]
 }
 
 [sub_resource type="Animation" id="Animation_wp71k"]
 resource_name = "attack_strong"
-length = 1.61667
+length = 1.0
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -138,14 +138,15 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(-2.98023e-07, 0.1, 0.2, 0.333333, 0.5, 0.616667, 0.683333, 0.85, 1.03333, 1.21667, 1.38333, 1.55),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.133333, 0.2, 0.266667, 0.333333, 0.416667, 0.5, 0.566667, 0.616667, 0.733333, 0.816667, 0.9, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
+"values": [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73]
 }
 
 [sub_resource type="Animation" id="Animation_djw12"]
 resource_name = "block"
+length = 0.500003
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -154,27 +155,15 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(3.72529e-09, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [120, 121, 122, 123, 124]
+"values": [140, 141, 142, 143]
 }
 
 [sub_resource type="Animation" id="Animation_mb4h2"]
 resource_name = "charge"
 step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333, 0.65, 0.716667, 0.783333, 0.85, 0.916667, 0.983333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96]
-}
 
 [sub_resource type="Animation" id="Animation_7wtw2"]
 resource_name = "idle"
@@ -195,6 +184,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_0rflr"]
 resource_name = "parade"
+length = 0.66667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -202,10 +192,10 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.466667, 0.6, 0.733333, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.333333, 0.433333, 0.566667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [100, 101, 102, 103, 104, 105, 106]
+"values": [120, 121, 122, 123, 124, 125]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l1u4d"]
@@ -225,10 +215,10 @@ _data = {
 }
 
 [node name="Player2" type="Node2D"]
-script = ExtResource("1_i7hi6")
+script = ExtResource("1_v3xai")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_2aypa")
+texture = ExtResource("2_2jbtv")
 hframes = 20
 vframes = 12
 frame = 120
