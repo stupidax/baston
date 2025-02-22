@@ -16,14 +16,14 @@ static var Animations = {
 
 var is_combat_ongoing;
 var life: int;
+var direction: bool;
 var charge;
 var max_charge;
 var damage;
-var sprite;
+var sprite: Sprite2D;
 var animation_player;
 var attack_action;
 var parade_action;
-var charge_frames: int;
 var hit_stun_frames: int;
 var block_stun_frames: int;
 var pause_frames: int;
@@ -36,7 +36,7 @@ var on_attack_hit;
 var on_parade;
 var on_block;
 
-func _init(stats_param, sprite_param, animation_player_param, attack_action_param, parade_action_param, \
+func _init(stats_param, sprite_param, animation_player_param, direction_param, attack_action_param, parade_action_param, \
 	attack_signal, charge_medium_signal, charge_strong_signal, parade_signal, block_signal):
 	
 	self.life = stats_param.life;
@@ -50,54 +50,32 @@ func _init(stats_param, sprite_param, animation_player_param, attack_action_para
 	self.damage = stats_param.attack_damage;
 	
 	self.sprite = sprite_param;
+	self.sprite.flip_h = direction_param
 	self.animation_player = animation_player_param;
 	self.attack_action = attack_action_param;
 	self.parade_action = parade_action_param;
 	self.set_current_animation(Animations.IDLE);
-	self.charge_frames = 0;
 	self.is_charging = false;
 	self.is_combat_ongoing = false;
-	
-	self.reset_keep_charge();
 	
 	self.on_attack_hit = attack_signal;
 	self.on_parade = parade_signal;
 	self.on_block = block_signal;
-
-func compute_charge():
-	if self.is_charging:
-		self.increment_charge_frames();
-	else:
-		self.reset_charge();
-		
-	if self.is_max_charge():
-		self.current_attack_type = Constants.attack_type.STRONG;
-		self.set_current_animation(Animations.ATTACK_STRONG);
-		self.reset_charge();
-func increment_charge_frames():
-	self.charge_frames += 1;
-	if self.charge.has(self.charge_frames):
-		self.charge[self.charge_frames].emit();
-func reset_charge():
-	self.is_charging = false;
-	self.charge_frames = 0;
-func is_max_charge():
-	return self.charge_frames == self.max_charge;
-
+	
+func from_frame_to_attack_type():
+	if self.sprite.frame >= self.frames_data.charge_frames[Constants.attack_type.STRONG]:
+		return Constants.attack_type.STRONG;
+	elif self.sprite.frame >= self.frames_data.charge_frames[Constants.attack_type.MEDIUM]:
+		return Constants.attack_type.MEDIUM;
+	return Constants.attack_type.LIGHT;
+	
 func compute_keep_charge():
-	self.keep_charge.charge_frames = self.charge_frames;
-	self.keep_charge.nb_attacks += 1;
-	self.keep_charge.is_active = true;
-	if (self.keep_charge.nb_attacks >= 3):
-		self.reset_keep_charge();
-func reset_keep_charge():
-	self.keep_charge = {
-		"is_active": false,
-		"charge_frame": 0,
-		"nb_attacks": 0
-	};
-func is_keeping_charge() -> bool:
-	return self.keep_charge.is_active;
+	if self.is_charging:
+		self.keep_charge += 1;
+	else:
+		self.keep_charge = 0;
+func is_keeping_charge():
+	return self.keep_charge < 3;
 
 func compute_received_attack(attack_received) -> int:
 	var is_hit = false;
@@ -105,7 +83,7 @@ func compute_received_attack(attack_received) -> int:
 	if attack_received != Constants.attack_type.STRONG \
 		&& self.animation_player.current_animation == Animations.PARADE \
 		&& self.sprite.frame >= self.frames_data.start_up_frames[Constants.key_word.PARADE] \
-		&& self.sprite.frame <= self.frames_data.start_up_frames[Constants.key_word.PARADE] + self.frames_data.active_frames[Constants.key_word.PARADE]:
+		&& self.sprite.frame <= self.frames_data.active_frames[Constants.key_word.PARADE]:
 		
 		self.set_current_animation(Animations.COUNTER);
 		self.on_parade.emit(self.frames_data.counter_frames);
@@ -131,7 +109,7 @@ func compute_hit(attack_received):
 	var is_interrupted = self.can_interrupt(attack_received);
 	if attack_received == Constants.attack_type.LIGHT:
 		self.compute_keep_charge();
-		is_interrupted = self.is_keeping_charge();
+		is_interrupted = !self.is_keeping_charge();
 	else:
 		self.set_hit_stun_frames(self.frames_data.hit_stun_frames[attack_received])
 		
@@ -153,9 +131,11 @@ func compute_pause():
 func pause_animation(nb_frames):
 	self.animation_player.pause();
 	self.pause_frames = nb_frames;
-func set_current_animation(new_animation):
+func set_current_animation(new_animation, next_animation = Animations.IDLE):
 	self.animation_player.play(new_animation);
-	self.animation_player.queue(Animations.IDLE);
+	self.animation_player.queue(next_animation);
+	if next_animation != Animations.IDLE:
+		self.animation_player.queue(Animations.IDLE)
 func set_block_stun_frames(value) -> void:
 	self.block_stun_frames = value;
 func set_hit_stun_frames(value) -> void:
