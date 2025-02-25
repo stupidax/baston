@@ -30,14 +30,16 @@ func _input(event: InputEvent) -> void:
 		valid_P2(P2_pos)
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _process(delta: float) -> void:
+	portrait_P2(delta)
+	portrait_P1(delta)
 
 
 func set_perso_P1(p_select):
 	for i in 3:
 		reset_carousel_P1(i)
 	P1_portrait(p_select)
+	$P1.position.x = -12
 	get_node("carousel_"+str(p_select)+"/select1_bg").visible = true
 	get_node("carousel_"+str(p_select)+"/player1_select").visible = true
 
@@ -49,6 +51,7 @@ func set_perso_P2(p_select):
 	for i in 3:
 		reset_carousel_P2(i)
 	P2_portrait(p_select)
+	$P2.position.x = 91
 	get_node("carousel_"+str(p_select)+"/select2_bg").visible = true
 	get_node("carousel_"+str(p_select)+"/player2_select").visible = true
 
@@ -93,3 +96,15 @@ func P2_portrait(p_select):
 			$P2.play("Dagger")
 		2:
 			$P2.play("Axe")
+
+func portrait_P1(p_delta):
+	if $P1.position.x < 12:
+		$P1.position.x += p_delta * 200
+		if $P1.position.x >= 12:
+			$P1.position.x = 12
+
+func portrait_P2(p_delta):
+	if $P2.position.x > 67:
+		$P2.position.x -= p_delta * 200
+		if $P2.position.x <= 67:
+			$P2.position.x = 67
