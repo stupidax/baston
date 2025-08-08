@@ -89,4 +89,4 @@ animations = [{
 sprite_frames = SubResource("SpriteFrames_c2q3q")
 animation = &"level_0"
 autoplay = "level_0"
-frame_progress = 0.914456
+frame_progress = 0.631214

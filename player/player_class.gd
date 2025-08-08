@@ -29,7 +29,7 @@ var block_stun_frames: int;
 var pause_frames: int;
 var frames_data;
 var is_charging;
-var keep_charge;
+var keep_charge = 0;
 var current_attack_type;
 
 var on_attack_hit;

@@ -238,36 +238,35 @@ script = ExtResource("1_8sx5x")
 
 [node name="bg_l6" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yicv8")
-animation = &"bg_3"
+animation = &"bg_1"
 autoplay = "bg_1"
 
 [node name="bg_l5" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 6)
 sprite_frames = SubResource("SpriteFrames_tsj0v")
-animation = &"bg_3"
+animation = &"bg_1"
 autoplay = "bg_1"
-frame_progress = 0.267476
 
 [node name="bg_l4" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 8)
 sprite_frames = SubResource("SpriteFrames_4bduq")
-animation = &"bg_3"
+animation = &"bg_1"
 autoplay = "bg_1"
 
 [node name="bg_l1" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 10)
 sprite_frames = SubResource("SpriteFrames_qwxvl")
-animation = &"bg_3"
+animation = &"bg_1"
 autoplay = "bg_1"
 
 [node name="bg_l2" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 12)
 sprite_frames = SubResource("SpriteFrames_bfvcy")
-animation = &"bg_3"
+animation = &"bg_1"
 autoplay = "bg_1"
 
 [node name="bg_l3" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 12)
 sprite_frames = SubResource("SpriteFrames_0ojoy")
-animation = &"bg_3"
+animation = &"bg_1"
 autoplay = "bg_1"

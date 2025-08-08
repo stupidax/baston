@@ -79,6 +79,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_lc5i3"]
 resource_name = "Victory"
+length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -87,7 +88,7 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.1, 0.166667, 0.233333, 0.3, 0.366667, 0.433333, 0.5, 0.566667, 0.666667, 0.766667, 0.866667, 0.966667),
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.3, 0.333333, 0.466667, 0.6, 0.766667, 0.966667, 1.06667, 1.23333, 1.4, 1.63333, 1.83333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233]
@@ -129,7 +130,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_wp71k"]
 resource_name = "attack_strong"
-length = 1.0
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -147,7 +147,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_djw12"]
 resource_name = "block"
 length = 0.500003
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

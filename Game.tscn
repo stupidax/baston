@@ -51,14 +51,14 @@ visible = false
 position = Vector2(47, 35)
 
 [node name="Player" parent="." node_paths=PackedStringArray("player_stats") instance=ExtResource("5_2h2is")]
-position = Vector2(31.5, 34.5)
+position = Vector2(26, 34)
 player_id = 1
 player_attack = "p1_attack"
 player_parade = "p1_parade"
 player_stats = NodePath("../Stats/Axe")
 
 [node name="Player2" parent="." node_paths=PackedStringArray("player_stats") instance=ExtResource("5_2h2is")]
-position = Vector2(57, 34)
+position = Vector2(58, 33)
 player_id = 2
 player_direction = true
 player_attack = "p2_attack"

@@ -66,5 +66,5 @@ script = ExtResource("1_025s7")
 [node name="bg_l1" type="AnimatedSprite2D" parent="."]
 position = Vector2(40, 39)
 sprite_frames = SubResource("SpriteFrames_ndp7a")
-animation = &"bg_3"
+animation = &"bg_1"
 autoplay = "bg_1"
